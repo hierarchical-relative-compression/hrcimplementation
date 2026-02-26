@@ -1,0 +1,498 @@
+==15488== Memcheck, a memory error detector
+==15488== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==15488== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==15488== Command: /home/mpelo/Documents/Simon/build/apps/hrlz -d ./output_219_children/ -o ./output_decomp_children --compressor gdc2
+==15488==
+Argument 0: /home/mpelo/Documents/Simon/build/apps/hrlz
+Argument 0 has type Pc
+Argument 1: -d
+Argument 1 has type Pc
+Argument 2: ./output_219_children/
+Argument 2 has type Pc
+Argument 3: -o
+Argument 3 has type Pc
+Argument 4: ./output_decomp_children
+Argument 4 has type Pc
+Argument 5: --compressor
+Argument 5 has type Pc
+Argument 6: gdc2
+Argument 6 has type Pc
+Archive name: ./output_219_children/11679_4#53
+Reference /home/mpelo/compression/DATA/fasta_sequences/11679_4#53.ori decompressed
+==15488== Thread 2:
+==15488== Conditional jump or move depends on uninitialised value(s)
+==15488==    at 0x15989A: ~Compressor2Stage (c2stage.h:205)
+==15488==    by 0x15989A: Compressor1Stage::run2StageDecompressor(Compressor2StageParams) (c1stage.cpp:56)
+==15488==    by 0x15BE0D: __invoke_impl<void, void (Compressor1Stage::*)(Compressor2StageParams), Compressor1Stage*, Compressor2StageParams> (invoke.h:74)
+==15488==    by 0x15BE0D: __invoke<void (Compressor1Stage::*)(Compressor2StageParams), Compressor1Stage*, Compressor2StageParams> (invoke.h:96)
+==15488==    by 0x15BE0D: _M_invoke<0, 1, 2> (std_thread.h:259)
+==15488==    by 0x15BE0D: operator() (std_thread.h:266)
+==15488==    by 0x15BE0D: std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (Compressor1Stage::*)(Compressor2StageParams), Compressor1Stage*, Compressor2StageParams> > >::_M_run() (std_thread.h:211)
+==15488==    by 0x49B5252: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==15488==    by 0x4CA2AC2: start_thread (pthread_create.c:442)
+==15488==    by 0x4D33A03: clone (clone.S:100)
+==15488==
+==15488== Thread 4:
+==15488== Mismatched free() / delete / delete []
+==15488==    at 0x484BB6F: operator delete(void*, unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15488==    by 0x15B0D2: Compressor1Stage::decompressStage1Consumer(unsigned int) (c1stage.cpp:756)
+==15488==    by 0x49B5252: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==15488==    by 0x4CA2AC2: start_thread (pthread_create.c:442)
+==15488==    by 0x4D33A03: clone (clone.S:100)
+==15488==  Address 0xa721040 is 0 bytes inside a block of size 10,890,000 alloc'd
+==15488==    at 0x484A2F3: operator new[](unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15488==    by 0x15B063: Compressor1Stage::decompressStage1Consumer(unsigned int) (c1stage.cpp:600)
+==15488==    by 0x49B5252: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==15488==    by 0x4CA2AC2: start_thread (pthread_create.c:442)
+==15488==    by 0x4D33A03: clone (clone.S:100)
+==15488==
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#37.ori]
+2.84512
+Archive name: ./output_219_children/11657_6#37
+==15488== Thread 1:
+==15488== Invalid write of size 1
+==15488==    at 0x15A9D3: decode3 (c1stage.cpp:214)
+==15488==    by 0x15A9D3: Compressor1Stage::decompressReference() (c1stage.cpp:478)
+==15488==    by 0x15AF7C: Compressor1Stage::decompress() (c1stage.cpp:544)
+==15488==    by 0x154A84: decompress() (main.cpp:103)
+==15488==    by 0x156A4C: gdc2main(int, char**) (main.cpp:412)
+==15488==    by 0x14EC84: Compressors::CompressorGDC2::decompress_sequence(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::filesystem::__cxx11::path const&) (CompressorGDC2.cpp:200)
+==15488==    by 0x14E811: Compressors::CompressorGDC2::decompress_hrlz_gdc2_only_children(std::filesystem::__cxx11::path const&) (CompressorGDC2.cpp:174)
+==15488==    by 0x14E6A1: Compressors::CompressorGDC2::decompress_hrlz(std::filesystem::__cxx11::path const&) const (CompressorGDC2.cpp:151)
+==15488==    by 0x113947: main::{lambda()#1}::operator()() const (hrlz.cpp:266)
+==15488==    by 0x1156A9: void Profiler::profile<main::{lambda()#1}>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, main::{lambda()#1}&&) (Timer.hpp:82)
+==15488==    by 0x1148D2: main (hrlz.cpp:246)
+==15488==  Address 0xac12865 is 0 bytes after a block of size 5,183,525 alloc'd
+==15488==    at 0x484A2F3: operator new[](unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15488==    by 0x15A898: Compressor1Stage::decompressReference() (c1stage.cpp:442)
+==15488==    by 0x15AF7C: Compressor1Stage::decompress() (c1stage.cpp:544)
+==15488==    by 0x154A84: decompress() (main.cpp:103)
+==15488==    by 0x156A4C: gdc2main(int, char**) (main.cpp:412)
+==15488==    by 0x14EC84: Compressors::CompressorGDC2::decompress_sequence(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::filesystem::__cxx11::path const&) (CompressorGDC2.cpp:200)
+==15488==    by 0x14E811: Compressors::CompressorGDC2::decompress_hrlz_gdc2_only_children(std::filesystem::__cxx11::path const&) (CompressorGDC2.cpp:174)
+==15488==    by 0x14E6A1: Compressors::CompressorGDC2::decompress_hrlz(std::filesystem::__cxx11::path const&) const (CompressorGDC2.cpp:151)
+==15488==    by 0x113947: main::{lambda()#1}::operator()() const (hrlz.cpp:266)
+==15488==    by 0x1156A9: void Profiler::profile<main::{lambda()#1}>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, main::{lambda()#1}&&) (Timer.hpp:82)
+==15488==    by 0x1148D2: main (hrlz.cpp:246)
+==15488==
+Reference /home/mpelo/compression/DATA/fasta_sequences/11657_6#37.ori decompressed
+1 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_8#55.ori]
+2 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#70.ori]
+3 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#8.ori]
+4 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#42.ori]
+5 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#34.ori]
+6 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_7#7.ori]
+7 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#57.ori]
+8 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_5#22.ori]
+9 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#72.ori]
+10 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#88.ori]
+11 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#65.ori]
+12 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#64.ori]
+13 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_6#49.ori]
+14.0176
+Archive name: ./output_219_children/11658_7#8
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_7#8.ori decompressed
+1 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_8#84.ori]
+2 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#32.ori]
+3 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#65.ori]
+5.9159
+Archive name: ./output_219_children/11658_8#55
+==15488== Invalid write of size 1
+==15488==    at 0x15A9B9: decode3 (c1stage.cpp:212)
+==15488==    by 0x15A9B9: Compressor1Stage::decompressReference() (c1stage.cpp:478)
+==15488==    by 0x15AF7C: Compressor1Stage::decompress() (c1stage.cpp:544)
+==15488==    by 0x154A84: decompress() (main.cpp:103)
+==15488==    by 0x156A4C: gdc2main(int, char**) (main.cpp:412)
+==15488==    by 0x14EC84: Compressors::CompressorGDC2::decompress_sequence(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::filesystem::__cxx11::path const&) (CompressorGDC2.cpp:200)
+==15488==    by 0x14E811: Compressors::CompressorGDC2::decompress_hrlz_gdc2_only_children(std::filesystem::__cxx11::path const&) (CompressorGDC2.cpp:174)
+==15488==    by 0x14E6A1: Compressors::CompressorGDC2::decompress_hrlz(std::filesystem::__cxx11::path const&) const (CompressorGDC2.cpp:151)
+==15488==    by 0x113947: main::{lambda()#1}::operator()() const (hrlz.cpp:266)
+==15488==    by 0x1156A9: void Profiler::profile<main::{lambda()#1}>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, main::{lambda()#1}&&) (Timer.hpp:82)
+==15488==    by 0x1148D2: main (hrlz.cpp:246)
+==15488==  Address 0x14febc6c is 0 bytes after a block of size 5,196,844 alloc'd
+==15488==    at 0x484A2F3: operator new[](unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15488==    by 0x15A898: Compressor1Stage::decompressReference() (c1stage.cpp:442)
+==15488==    by 0x15AF7C: Compressor1Stage::decompress() (c1stage.cpp:544)
+==15488==    by 0x154A84: decompress() (main.cpp:103)
+==15488==    by 0x156A4C: gdc2main(int, char**) (main.cpp:412)
+==15488==    by 0x14EC84: Compressors::CompressorGDC2::decompress_sequence(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::filesystem::__cxx11::path const&) (CompressorGDC2.cpp:200)
+==15488==    by 0x14E811: Compressors::CompressorGDC2::decompress_hrlz_gdc2_only_children(std::filesystem::__cxx11::path const&) (CompressorGDC2.cpp:174)
+==15488==    by 0x14E6A1: Compressors::CompressorGDC2::decompress_hrlz(std::filesystem::__cxx11::path const&) const (CompressorGDC2.cpp:151)
+==15488==    by 0x113947: main::{lambda()#1}::operator()() const (hrlz.cpp:266)
+==15488==    by 0x1156A9: void Profiler::profile<main::{lambda()#1}>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, main::{lambda()#1}&&) (Timer.hpp:82)
+==15488==    by 0x1148D2: main (hrlz.cpp:246)
+==15488==
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_8#55.ori decompressed
+1 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_6#45.ori]
+2 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#87.ori]
+3 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_7#50.ori]
+5.64476
+Archive name: ./output_219_children/11658_6#34
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_6#34.ori decompressed
+1 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_5#13.ori]
+2 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_6#9.ori]
+3 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#41.ori]
+5.35105
+Archive name: ./output_219_children/11657_7#57
+Reference /home/mpelo/compression/DATA/fasta_sequences/11657_7#57.ori decompressed
+1 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#66.ori]
+2 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#23.ori]
+3 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#54.ori]
+5.12884
+Archive name: ./output_219_children/11657_6#65
+Reference /home/mpelo/compression/DATA/fasta_sequences/11657_6#65.ori decompressed
+1 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_8#64.ori]
+2 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#13.ori]
+3 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_7#5.ori]
+4 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#89.ori]
+5 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#16.ori]
+6 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_6#7.ori]
+7 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#5.ori]
+8 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#73.ori]
+9 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#39.ori]
+10 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#43.ori]
+11 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#7.ori]
+12 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#30.ori]
+13 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#66.ori]
+14 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#4.ori]
+15 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_6#1.ori]
+16 of 16 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_5#80.ori]
+16.524
+Archive name: ./output_219_children/11791_7#50
+Reference /home/mpelo/compression/DATA/fasta_sequences/11791_7#50.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#94.ori]
+3.68786
+Archive name: ./output_219_children/11658_5#87
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_5#87.ori decompressed
+1 of 5 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_8#87.ori]
+2 of 5 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#77.ori]
+3 of 5 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#71.ori]
+4 of 5 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_6#32.ori]
+5 of 5 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#92.ori]
+7.13792
+Archive name: ./output_219_children/11658_5#41
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_5#41.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_5#90.ori]
+4.2658
+Archive name: ./output_219_children/11791_7#5
+Reference /home/mpelo/compression/DATA/fasta_sequences/11791_7#5.ori decompressed
+1 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#47.ori]
+2 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#11.ori]
+5.07596
+Archive name: ./output_219_children/11658_8#64
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_8#64.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#5.ori]
+3.71737
+Archive name: ./output_219_children/11658_7#71
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_7#71.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#47.ori]
+3.44823
+Archive name: ./output_219_children/11658_5#11
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_5#11.ori decompressed
+1 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_5#7.ori]
+2 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_6#24.ori]
+3 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#16.ori]
+4 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#81.ori]
+5 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#2.ori]
+6 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#81.ori]
+7 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_5#44.ori]
+8 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#82.ori]
+==15488== Thread 3:
+==15488== Invalid read of size 1
+==15488==    at 0x4852A1D: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15488==    by 0x15B985: __copy_m<unsigned char> (stl_algobase.h:431)
+==15488==    by 0x15B985: __copy_move_a2<false, unsigned char*, unsigned char*> (stl_algobase.h:495)
+==15488==    by 0x15B985: __copy_move_a1<false, unsigned char*, unsigned char*> (stl_algobase.h:522)
+==15488==    by 0x15B985: __copy_move_a<false, unsigned char*, unsigned char*> (stl_algobase.h:529)
+==15488==    by 0x15B985: copy<unsigned char*, unsigned char*> (stl_algobase.h:620)
+==15488==    by 0x15B985: __copy_n<unsigned char*, unsigned int, unsigned char*> (stl_algo.h:725)
+==15488==    by 0x15B985: copy_n<unsigned char*, unsigned int, unsigned char*> (stl_algo.h:757)
+==15488==    by 0x15B985: Compressor1Stage::decompressStage1Consumer(unsigned int) (c1stage.cpp:663)
+==15488==    by 0x49B5252: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==15488==    by 0x4CA2AC2: start_thread (pthread_create.c:442)
+==15488==    by 0x4D33A03: clone (clone.S:100)
+==15488==  Address 0x4b12fca8 is 0 bytes after a block of size 5,119,080 alloc'd
+==15488==    at 0x484A2F3: operator new[](unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==15488==    by 0x15A898: Compressor1Stage::decompressReference() (c1stage.cpp:442)
+==15488==    by 0x15AF7C: Compressor1Stage::decompress() (c1stage.cpp:544)
+==15488==    by 0x154A84: decompress() (main.cpp:103)
+==15488==    by 0x156A4C: gdc2main(int, char**) (main.cpp:412)
+==15488==    by 0x14EC84: Compressors::CompressorGDC2::decompress_sequence(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::filesystem::__cxx11::path const&) (CompressorGDC2.cpp:200)
+==15488==    by 0x14E811: Compressors::CompressorGDC2::decompress_hrlz_gdc2_only_children(std::filesystem::__cxx11::path const&) (CompressorGDC2.cpp:174)
+==15488==    by 0x14E6A1: Compressors::CompressorGDC2::decompress_dataset(std::filesystem::__cxx11::path const&) const (CompressorGDC2.cpp:151)
+==15488==    by 0x113947: main::{lambda()#1}::operator()() const (hrlz.cpp:266)
+==15488==    by 0x1156A9: void Profiler::profile<main::{lambda()#1}>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, main::{lambda()#1}&&) (Timer.hpp:82)
+==15488==    by 0x1148D2: main (hrlz.cpp:246)
+==15488==
+9 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#52.ori]
+10 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_5#92.ori]
+11 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#91.ori]
+12 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#57.ori]
+13 of 13 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#78.ori]
+15.9435
+Archive name: ./output_219_children/11657_7#47
+Reference /home/mpelo/compression/DATA/fasta_sequences/11657_7#47.ori decompressed
+1 of 6 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/NCTC13441.ori]
+2 of 6 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_7#45.ori]
+3 of 6 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#86.ori]
+4 of 6 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_8#84.ori]
+5 of 6 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#44.ori]
+6 of 6 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#67.ori]
+7.55521
+Archive name: ./output_219_children/11658_5#5
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_5#5.ori decompressed
+1 of 7 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#61.ori]
+2 of 7 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#52.ori]
+3 of 7 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#14.ori]
+4 of 7 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_8#85.ori]
+5 of 7 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_7#49.ori]
+6 of 7 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_8#11.ori]
+7 of 7 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#40.ori]
+8.25139
+Archive name: ./output_219_children/11791_6#24
+Reference /home/mpelo/compression/DATA/fasta_sequences/11791_6#24.ori decompressed
+1 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#80.ori]
+2 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_5#89.ori]
+3 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#42.ori]
+4 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_3#58.ori]
+5 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#85.ori]
+6 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_5#94.ori]
+7 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#17.ori]
+8 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#7.ori]
+9 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_3#49.ori]
+10 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#42.ori]
+11 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#64.ori]
+12 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#48.ori]
+13 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_8#27.ori]
+14 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#19.ori]
+15 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#32.ori]
+16 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#26.ori]
+17 of 17 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#12.ori]
+18.7739
+Archive name: ./output_219_children/11657_5#7
+Reference /home/mpelo/compression/DATA/fasta_sequences/11657_5#7.ori decompressed
+1 of 5 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_5#61.ori]
+2 of 5 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_5#33.ori]
+3 of 5 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_8#85.ori]
+4 of 5 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#74.ori]
+5 of 5 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#54.ori]
+9.22038
+Archive name: ./output_219_children/11658_7#16
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_7#16.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_5#94.ori]
+3.46927
+Archive name: ./output_219_children/11679_5#44
+Reference /home/mpelo/compression/DATA/fasta_sequences/11679_5#44.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_6#11.ori]
+3.45266
+Archive name: ./output_219_children/11791_7#45
+Reference /home/mpelo/compression/DATA/fasta_sequences/11791_7#45.ori decompressed
+1 of 4 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#86.ori]
+2 of 4 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#60.ori]
+3 of 4 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#93.ori]
+4 of 4 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#57.ori]
+7.62066
+Archive name: ./output_219_children/11658_3#86
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_3#86.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_8#93.ori]
+2.70311
+Archive name: ./output_219_children/11658_4#61
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_4#61.ori decompressed
+1 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#70.ori]
+2 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#64.ori]
+3.19112
+Archive name: ./output_219_children/11657_6#14
+Reference /home/mpelo/compression/DATA/fasta_sequences/11657_6#14.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_3#26.ori]
+3.2954
+Archive name: ./output_219_children/11657_5#89
+Reference /home/mpelo/compression/DATA/fasta_sequences/11657_5#89.ori decompressed
+1 of 4 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#11.ori]
+2 of 4 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_3#43.ori]
+3 of 4 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#53.ori]
+4 of 4 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#12.ori]
+6.63308
+Archive name: ./output_219_children/11791_3#58
+Reference /home/mpelo/compression/DATA/fasta_sequences/11791_3#58.ori decompressed
+1 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_5#24.ori]
+2 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#18.ori]
+4.69414
+Archive name: ./output_219_children/11657_5#61
+Reference /home/mpelo/compression/DATA/fasta_sequences/11657_5#61.ori decompressed
+1 of 11 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#63.ori]
+2 of 11 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#28.ori]
+3 of 11 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#22.ori]
+4 of 11 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#95.ori]
+5 of 11 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#26.ori]
+6 of 11 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#59.ori]
+7 of 11 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#67.ori]
+8 of 11 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#53.ori]
+9 of 11 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_7#55.ori]
+10 of 11 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_6#59.ori]
+11 of 11 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#78.ori]
+11.5721
+Archive name: ./output_219_children/11679_8#85
+Reference /home/mpelo/compression/DATA/fasta_sequences/11679_8#85.ori decompressed
+1 of 12 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#92.ori]
+2 of 12 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#57.ori]
+3 of 12 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#8.ori]
+4 of 12 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#58.ori]
+5 of 12 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_6#37.ori]
+6 of 12 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_6#95.ori]
+7 of 12 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#7.ori]
+8 of 12 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_7#59.ori]
+9 of 12 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#65.ori]
+10 of 12 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#41.ori]
+11 of 12 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_5#11.ori]
+12 of 12 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#51.ori]
+13.3842
+Archive name: ./output_219_children/11657_5#94
+Reference /home/mpelo/compression/DATA/fasta_sequences/11657_5#94.ori decompressed
+1 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_7#21.ori]
+2 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_5#80.ori]
+4.07312
+Archive name: ./output_219_children/11679_7#86
+Reference /home/mpelo/compression/DATA/fasta_sequences/11679_7#86.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#14.ori]
+3.25325
+Archive name: ./output_219_children/11658_4#60
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_4#60.ori decompressed
+1 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_8#74.ori]
+2 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_8#6.ori]
+4.83008
+Archive name: ./output_219_children/11791_3#26
+Reference /home/mpelo/compression/DATA/fasta_sequences/11791_3#26.ori decompressed
+1 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_3#62.ori]
+2 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_5#57.ori]
+3.83349
+Archive name: ./output_219_children/11657_6#63
+Reference /home/mpelo/compression/DATA/fasta_sequences/11657_6#63.ori decompressed
+1 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#4.ori]
+2 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_5#2.ori]
+3 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#77.ori]
+4 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#58.ori]
+5 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#66.ori]
+6 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_5#46.ori]
+7 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#74.ori]
+8 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#36.ori]
+9 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_3#32.ori]
+10 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#10.ori]
+11 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_5#44.ori]
+12 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#56.ori]
+13 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#21.ori]
+14 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#56.ori]
+15 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_6#30.ori]
+16 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#95.ori]
+17 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_3#69.ori]
+18 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_6#94.ori]
+19 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_8#57.ori]
+20 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#91.ori]
+21 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_6#30.ori]
+22 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#15.ori]
+23 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_6#25.ori]
+24 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#73.ori]
+25 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_6#93.ori]
+26 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#8.ori]
+27 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_8#78.ori]
+28 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_8#86.ori]
+29 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#66.ori]
+30 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#38.ori]
+31 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_3#92.ori]
+32 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#55.ori]
+33 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#41.ori]
+34 of 34 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#91.ori]
+38.6778
+Archive name: ./output_219_children/11657_7#22
+Reference /home/mpelo/compression/DATA/fasta_sequences/11657_7#22.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#43.ori]
+2.81498
+Archive name: ./output_219_children/11658_5#28
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_5#28.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_7#2.ori]
+3.97985
+Archive name: ./output_219_children/11658_6#92
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_6#92.ori decompressed
+1 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#8.ori]
+2 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_8#70.ori]
+3 of 3 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#31.ori]
+6.60406
+Archive name: ./output_219_children/11791_3#62
+Reference /home/mpelo/compression/DATA/fasta_sequences/11791_3#62.ori decompressed
+1 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#53.ori]
+2 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_5#12.ori]
+5.50083
+Archive name: ./output_219_children/11679_5#57
+Reference /home/mpelo/compression/DATA/fasta_sequences/11679_5#57.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_6#22.ori]
+3.15566
+Archive name: ./output_219_children/11679_4#8
+Reference /home/mpelo/compression/DATA/fasta_sequences/11679_4#8.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#22.ori]
+3.72724
+Archive name: ./output_219_children/11658_6#43
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_6#43.ori decompressed
+1 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#33.ori]
+2 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#26.ori]
+3 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#70.ori]
+4 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#23.ori]
+5 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#93.ori]
+6 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_7#60.ori]
+7 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#86.ori]
+8 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#54.ori]
+9 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_4#85.ori]
+10 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#89.ori]
+11 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#44.ori]
+12 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_8#92.ori]
+13 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#56.ori]
+14 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#35.ori]
+15 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_7#52.ori]
+16 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#90.ori]
+17 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_3#55.ori]
+18 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_5#77.ori]
+19 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11658_7#7.ori]
+20 of 20 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_8#1.ori]
+21.9869
+Archive name: ./output_219_children/11658_4#22
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_4#22.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#23.ori]
+3.86248
+Archive name: ./output_219_children/11658_7#23
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_7#23.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11791_3#81.ori]
+3.46009
+Archive name: ./output_219_children/11658_8#92
+Reference /home/mpelo/compression/DATA/fasta_sequences/11658_8#92.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#62.ori]
+3.27574
+Archive name: ./output_219_children/11791_3#81
+Reference /home/mpelo/compression/DATA/fasta_sequences/11791_3#81.ori decompressed
+1 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_4#58.ori]
+2 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#94.ori]
+4.66299
+Archive name: ./output_219_children/11679_4#62
+Reference /home/mpelo/compression/DATA/fasta_sequences/11679_4#62.ori decompressed
+1 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_7#87.ori]
+2 of 2 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11679_6#7.ori]
+4.08443
+Archive name: ./output_219_children/11679_6#7
+Reference /home/mpelo/compression/DATA/fasta_sequences/11679_6#7.ori decompressed
+1 of 1 sequences decompressed [last: /home/mpelo/compression/DATA/fasta_sequences/11657_6#96.ori]
+2.7015
+[PROFILE][decompress] 327278119 us
+[PROFILE][total] 327278119 us
+==15488==
+==15488== HEAP SUMMARY:
+==15488==     in use at exit: 7,589,530,717 bytes in 449 blocks
+==15488==   total heap usage: 17,099 allocs, 16,650 frees, 10,703,036,354 bytes allocated
+==15488==
+==15488== LEAK SUMMARY:
+==15488==    definitely lost: 4,366,150,541 bytes in 379 blocks
+==15488==    indirectly lost: 455,142,316 bytes in 10 blocks
+==15488==      possibly lost: 2,768,237,852 bytes in 59 blocks
+==15488==    still reachable: 8 bytes in 1 blocks
+==15488==         suppressed: 0 bytes in 0 blocks
+==15488== Rerun with --leak-check=full to see details of leaked memory
+==15488==
+==15488== Use --track-origins=yes to see where uninitialised values come from
+==15488== For lists of detected and suppressed errors, rerun with: -s
+==15488== ERROR SUMMARY: 230 errors from 5 contexts (suppressed: 0 from 0)

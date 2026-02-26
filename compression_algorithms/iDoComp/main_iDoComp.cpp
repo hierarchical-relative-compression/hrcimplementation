@@ -1,0 +1,367 @@
+ //
+//  main.c
+//  iDoComp_v1
+//
+//  Created by Mikel Hernaez on 8/7/14.
+//  Copyright (c) 2014 Mikel Hernaez. All rights reserved.
+//
+//
+//This program is free software: you can redistribute it and/or modify
+//it under the terms of the GNU Affero General Public License version 3,
+//as published by the Free Software Foundation.
+//
+//This program is distributed in the hope that it will be useful, but
+//WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+//Affero General Public License for more details.
+//
+//You should have received a copy of the GNU Affero General Public
+//License along with this program. If not, see
+//<http://www.gnu.org/licenses/>.
+
+#include "include/iDoComp/iDoComp.h"
+#include "include/iDoComp/iDoCompInterface.hpp"
+#include "include/iDoComp/idc_load_chr.h"
+#include <filesystem>
+
+BASEPAIR char2BP(char c){
+    switch (c) {
+        case 'A':
+            return bp_A;
+        case 'C':
+            return bp_C;
+        case 'G':
+            return bp_G;
+        case 'T':
+            return bp_T;
+        case 'N':
+            return bp_N;
+        case 'U':
+            return bp_U;
+        case 'R':
+            return bp_R;
+        case 'Y':
+            return bp_Y;
+        case 'K':
+            return bp_K;
+        case 'M':
+            return bp_M;
+        case 'S':
+            return bp_S;
+        case 'W':
+            return bp_W;
+        case 'B':
+            return bp_B;
+        case 'D':
+            return bp_D;
+        case 'H':
+            return bp_H;
+        case 'V':
+            return bp_V;
+        case 'X':
+            return bp_X;
+        case 'a':
+            return bp_a;
+        case 'c':
+            return bp_c;
+        case 'g':
+            return bp_g;
+        case 't':
+            return bp_t;
+        case 'n':
+            return bp_n;
+        case 'u':
+            return bp_u;
+        case 'r':
+            return bp_r;
+        case 'y':
+            return bp_y;
+        case 'k':
+            return bp_k;
+        case 'm':
+            return bp_m;
+        case 's':
+            return bp_s;
+        case 'w':
+            return bp_w;
+        case 'b':
+            return bp_b;
+        case 'd':
+            return bp_d;
+        case 'h':
+            return bp_h;
+        case 'v':
+            return bp_v;
+        case 'x':
+            return bp_x;
+        case '#':
+            return bp_N;
+        default:
+            fprintf(stderr, "%c is not a valid FASTA base pair in a file, using N instead.\n", c);
+            return bp_N;
+    }
+};
+
+char BP2char(BASEPAIR c){
+    switch (c) {
+        case bp_A:
+            return 'A';
+        case bp_C:
+            return 'C';
+        case bp_G:
+            return 'G';
+        case bp_T:
+            return 'T';
+        case bp_N:
+            return 'N';
+        case bp_U:
+            return 'U';
+        case bp_R:
+            return 'R';
+        case bp_Y:
+            return 'Y';
+        case bp_K:
+            return 'K';
+        case bp_M:
+            return 'M';
+        case bp_S:
+            return 'S';
+        case bp_W:
+            return 'W';
+        case bp_B:
+            return 'B';
+        case bp_D:
+            return 'D';
+        case bp_H:
+            return 'H';
+        case bp_V:
+            return 'V';
+        case bp_X:
+            return 'X';
+        case bp_a:
+            return 'a';
+        case bp_c:
+            return 'c';
+        case bp_g:
+            return 'g';
+        case bp_t:
+            return 't';
+        case bp_n:
+            return 'n';
+        case bp_u:
+            return 'u';
+        case bp_r:
+            return 'r';
+        case bp_y:
+            return 'y';
+        case bp_k:
+            return 'k';
+        case bp_m:
+            return 'm';
+        case bp_s:
+            return 's';
+        case bp_w:
+            return 'w';
+        case bp_b:
+            return 'b';
+        case bp_d:
+            return 'd';
+        case bp_h:
+            return 'h';
+        case bp_v:
+            return 'v';
+        case bp_x:
+            return 'x';
+        default:
+            fprintf(stderr,"Something wrong compressing chars...\n");
+            return 0;
+    }
+};
+
+int compression_main(int argc, const char * argv[])
+{
+    
+    FILE *inputFile, *headerFile;
+    
+    char outputPath[256];
+    
+    clock_t begin, end;
+    
+    unsigned int chrCtr = 0, bpPerLine = 0, compressedSize = 0;
+    
+    chromosome chr;
+    
+    if (argc != 4) {
+        fprintf(stderr,"ERROR: The input argument is 1) c for compression, 2) a .txt file with the reference, the target and the SA, and 3) output (i.e., compressed) file path. \n");
+        return 9;
+    }
+    
+    begin = clock();
+    
+    //open the input file
+    inputFile = fopen ( argv[2] , "r" );
+    if (inputFile==NULL) {fputs ("Input File error\n",stderr); exit (1);}
+    
+    strcpy(outputPath, argv[3]);
+    strcat(outputPath, "_headers.ido");
+    
+    //open the Header file
+    headerFile = fopen ( outputPath , "w" );
+    if (headerFile==NULL) {fputs ("Header File error\n",stderr); exit (1);}
+    
+    //open the dataFile
+    strcpy(outputPath, argv[3]);
+    
+    //chr = generate_chromosome_sequence(inputFile, headerFile, &chrCtr, &bpPerLine);
+    chr = generate_chromosome_sequence(inputFile, headerFile, &chrCtr, &bpPerLine);
+    
+    compressedSize = start_fasta_compression(chr, outputPath, chrCtr, bpPerLine);
+    
+    end = clock();
+    
+    
+    printf("Compression CPU Time: %.2f seconds\n", (double)(end - begin)/ CLOCKS_PER_SEC);
+    
+    printf("Compressed Size: %d Bytes\n", compressedSize);
+    
+    return 0;
+}
+
+int decompression_main(int argc, const char *argv[]){
+    
+    
+    FILE *inputFile, *headerFile;
+    
+    char outputPath[256];
+    
+    clock_t begin, end;
+    
+    if (argc != 4) {
+        fprintf(stderr,"ERROR: The input argument is 1) d for decompression, 2) a .txt file with the reference, and the reconstructed file, and 3) compressed file path.\n");
+        return 9;
+    }
+    
+    begin = clock();
+    
+    //open the input file
+    inputFile = fopen ( argv[2] , "r" );
+    if (inputFile==NULL) {fputs ("Input File error\n",stderr); exit (1);}
+    
+    strcpy(outputPath, argv[3]);
+    strcat(outputPath, "_headers.ido");
+    
+    //open the Header file
+    headerFile = fopen ( outputPath , "r" );
+    if (headerFile==NULL) {fputs ("Header File error\n",stderr); exit (1);}
+    
+    //open the dataFile
+    strcpy(outputPath, argv[3]);
+    
+    start_fasta_decompression(outputPath, inputFile, headerFile);
+    
+    end = clock();
+    
+    
+    //printf("Decompression CPU Time: %.2f seconds\n", (double)(end - begin)/ CLOCKS_PER_SEC);
+    
+    return 0;
+}
+
+int main_iDoComp(int argc, const char * argv[])
+{
+
+    //Check that the input argument are ok
+    
+    switch ((int)argv[1][0]) {
+        case 'c':
+            compression_main(argc, argv);
+            return 1;
+            
+        case 'd':
+            decompression_main(argc, argv);
+            return 1;
+            
+            
+        default:
+            fprintf(stderr,"ERROR: use 'c' for compression or 'd' for decompression as first argument.\n");
+            return 0;
+    }
+
+    return 0;
+}
+/**
+ * Compresses a target using a reference and the suffix array of the reference. Stores the result at the specified path.
+ * @param ref full path to the reference file
+ * @param ref_sa full path to the reference suffix array (.sa)
+ * @param target full path to the target file
+ * @param output_path output_directory/prefix_name of the output
+ * @return the size in bytes of the compressed output
+ */
+std::size_t iDoComp_compress(const std::filesystem::path& ref, const std::filesystem::path& ref_sa,
+const std::filesystem::path& target, const std::filesystem::path& output_path) {
+    std::string filename = ref.filename().string() + "_" + target.filename().string();
+    FILE *headerFile;
+    clock_t begin, end;
+    unsigned int chrCtr = 0, bpPerLine = 0;
+    std::size_t compressedSize = 0;
+
+    chromosome chr;
+
+    begin = clock();
+
+    std::string output_path_raw = output_path.string();
+
+    std::string output_headers = output_path_raw + "_headers.ido";
+    //open the header file for writing
+    headerFile = fopen(output_headers.c_str(), "w");
+    //handle file error
+    if (headerFile==NULL) {fputs ("Header File error\n",stderr); exit (1);}
+    //open the dataFile
+    chr = generate_chromosome_sequence_new(ref.c_str(), target.c_str(), ref_sa.c_str(), headerFile, &chrCtr, &bpPerLine);
+    //there's plenty of buffer overflow bugs here. We'll try to keep it easy by having 20 more bytes of space
+    std::size_t n = output_path_raw.length();
+    char *path = new char[n + 20];
+    output_path_raw.copy(path, n);
+    path[n] = '\0';
+    //Compress
+    compressedSize = start_fasta_compression(chr, path, chrCtr, bpPerLine);
+    end = clock();
+    //printf("Compression CPU Time: %.2f seconds\n", (double)(end - begin)/ CLOCKS_PER_SEC);
+    //printf("Compressed Size: %d Bytes\n", compressedSize);
+    delete[] path;
+    return compressedSize;
+}
+/**
+ * Decompresses a file compressed with iDoComp
+ * @param ref full path to the reference file
+ * @param target_name the filename of the target that was compressed (will be the filename of the output)
+ * @param compressed_target path to the compressed target, with its filename prefix
+ * @param output_dir the directory where the decompressed output will be stored.
+ * @return
+ */
+int iDoComp_decompress(const std::filesystem::path& ref, const std::string& target_name,
+                       const std::filesystem::path& compressed_target, const std::filesystem::path& output_dir) {
+    //Max: we have to append the filename to output_decompression (which is just a directory)
+    std::string output = (output_dir / target_name).string();
+    FILE *header_file;
+    clock_t begin, end;
+    begin = clock();
+    //Open the header file
+    std::string header_file_path = compressed_target.string().append("_headers.ido");
+    header_file = fopen(header_file_path.c_str(), "r");
+    if (header_file == NULL) {
+        fputs("Header file error\n", stderr);
+        exit(1);
+    }
+    //open the data files
+    std::string compressed_target_str = compressed_target.string();
+    std::size_t n = compressed_target_str.size();
+    char *compressed_target_path = new char[n + 20];
+    compressed_target_str.copy(compressed_target_path, n);
+    compressed_target_path[n] = '\0';
+    start_fasta_decompression_new(ref.c_str(), output.c_str(), compressed_target_path, header_file);
+    end = clock();
+    //printf("Decompression CPU Time: %.2f seconds\n", (double)(end - begin)/ CLOCKS_PER_SEC);
+    return 0;
+}
+

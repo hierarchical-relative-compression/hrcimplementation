@@ -1,0 +1,1 @@
+target_sources(ArithmeticCoder PRIVATE BitBuffer.cpp BitReader.cpp BitWriter.cpp)

@@ -1,0 +1,80 @@
+mpelo@comp-nb5490:~/Documents/Simon/tests$ ./execute_file_comp_decomp.sh hirgc
+/home/mpelo/Documents/Simon/tests
+/home/mpelo/DATA_COMPRESSION/Ecoli Simon/ecoli
+/home/mpelo/DATA_COMPRESSION/Ecoli Simon/ecoli/output_dir
+/home/mpelo/DATA_COMPRESSION/Ecoli Simon/ecoli/output_decompression
+rm: cannot remove '/home/mpelo/DATA_COMPRESSION/Ecoli Simon/ecoli/output_dir/*': No such file or directory
+Argument 0: /home/mpelo/Documents/Simon/tests/../build/apps/hrlz
+Argument 0 has type Pc
+Argument 1: /home/mpelo/DATA_COMPRESSION/Ecoli Simon/ecoli/abs_sequences_5.txt
+Argument 1 has type Pc
+Argument 2: -c
+Argument 2 has type Pc
+Argument 3: /home/mpelo/DATA_COMPRESSION/Ecoli Simon/ecoli/output_dir
+Argument 3 has type Pc
+Argument 4: --compressor
+Argument 4 has type Pc
+Argument 5: hirgc
+Argument 5 has type Pc
+Size of k-mer: 256
+Size of fingerprint: 4
+No. of rounds till shrink: 10
+Computing approximate graph. Total of 5 components.
+Initial threshold: 4
+Current number of components: 5, Clusters: Size 1: 5,
+5, Clusters: Size 1: 5,
+5, Clusters: Size 1: 3, Size 2: 1,
+4, Clusters: Size 1: 5,
+4, Clusters: Size 1: 5,
+4, Clusters: Size 1: 5,
+4, Clusters: Size 1: 5,
+4, Clusters: Size 1: 5,
+4, Clusters: Size 1: 3, Size 2: 1,
+3, Clusters: Size 1: 5,
+
+Sparsified graph:
+No. of vertices: 5
+No. of edges: 10
+Deleting ref
+Deleting ref
+Deleting ref
+Deleting ref
+Deleting ref
+Finding minimum spanning arborescence on graph with 5 nodes and 10 edges
+Calling 7za with 7za a "/home/mpelo/Documents/DTU/PHD COMPRESSION/DATA/Ecoli Simon/ecoli/output_dir/target_ref_.7z" "/home/mpelo/Documents/DTU/PHD COMPRESSION/DATA/Ecoli Simon/ecoli/output_dir/target_ref_" -m0=PPMd
+
+7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,12 CPUs 13th Gen Intel(R) Core(TM) i7-1365U (B06A3),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 2791636 bytes (2727 KiB)
+
+Creating archive: /home/mpelo/Documents/DTU/PHD COMPRESSION/DATA/Ecoli Simon/ecoli/output_dir/target_ref_.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 691026 bytes (675 KiB)
+Everything is Ok
+Calling rm with rm "/home/mpelo/Documents/DTU/PHD COMPRESSION/DATA/Ecoli Simon/ecoli/output_dir/target_ref_"
+Error compressing "/home/mpelo/Documents/DTU/PHD COMPRESSION/DATA/Ecoli Simon/ecoli/sequences/11679_4#40" with ref "/home/mpelo/Documents/DTU/PHD COMPRESSION/DATA/Ecoli Simon/ecoli/sequences/11679_8#85": no output!
+terminate called after throwing an instance of 'std::filesystem::__cxx11::filesystem_error'
+  what():  filesystem error: cannot get file size: No such file or directory [/home/mpelo/Documents/DTU/PHD COMPRESSION/DATA/Ecoli Simon/ecoli/output_dir/11679_4#40_ref_11679_8#85.7z]
+./execute_file_comp_decomp.sh: line 28: 90370 Aborted                 (core dumped) "${TEST_DIR}/../build/apps/hrlz" "${DATA_DIR}/abs_sequences_5.txt" "-c" "${OUTPUT_COMPRESSION}" "--compressor" "$COMPRESSION_TYPE"
+Argument 0: /home/mpelo/Documents/Simon/tests/../build/apps/hrlz
+Argument 0 has type Pc
+Argument 1: -d
+Argument 1 has type Pc
+Argument 2: /home/mpelo/DATA_COMPRESSION/Ecoli Simon/ecoli/output_dir
+Argument 2 has type Pc
+Argument 3: -o
+Argument 3 has type Pc
+Argument 4: /home/mpelo/DATA_COMPRESSION/Ecoli Simon/ecoli/output_decompression
+Argument 4 has type Pc
+Argument 5: --compressor
+Argument 5 has type Pc
+Argument 6: hirgc
+Argument 6 has type Pc
+Cannot open stream from "/home/mpelo/Documents/DTU/PHD COMPRESSION/DATA/Ecoli Simon/ecoli/output_dir/metadata"
+./execute_file_comp_decomp.sh: line 32: python: command not found
