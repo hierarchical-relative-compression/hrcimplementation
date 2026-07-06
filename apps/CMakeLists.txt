@@ -30,12 +30,12 @@ add_executable(access access.cpp)
 
 target_link_libraries(access PRIVATE accessLib)
 
-add_executable(hirgc_max_exec hirgc_max_exec.cpp)
-target_link_libraries(hirgc_max_exec HiRGC)
-target_link_libraries(hirgc_max_exec fse)
+add_executable(hirgc_exec hirgc_max_exec.cpp)
+target_link_libraries(hirgc_exec HiRGC)
+target_link_libraries(hirgc_exec fse)
 
-add_executable(iDoCompMaxExec iDoCompMaxExec.cpp)
-target_link_libraries(iDoCompMaxExec iDoCompMaxLib fse)
+add_executable(idocomp_exec iDoCompMaxExec.cpp)
+target_link_libraries(idocomp_exec iDoCompMaxLib fse)
 
 #Random tests
 add_executable(test_function test_function.cpp)
