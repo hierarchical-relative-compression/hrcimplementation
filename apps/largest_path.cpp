@@ -62,6 +62,7 @@ void print_usage() {
 largest_path metadata
 
 Finds the longest path from a root to a leaf.)";
+    std::cout << usage << std::endl;
 }
 
 int main(int argc, char *argv[]) {

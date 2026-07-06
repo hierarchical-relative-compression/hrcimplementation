@@ -132,7 +132,7 @@ int64_t compress_decompress_fse_mem(const std::string& str) {
     FILE *out_dec = open_memstream(&out_decoded, &size_decoded);
     huff.decode_C_stream(in, out_dec);
     fclose(in);
-    fclose(out);
+    fclose(out_dec);
     //compare fasta works with C++ streams
     std::stringstream original(str);
     membuf sbuf(out_decoded, out_decoded + size_decoded);

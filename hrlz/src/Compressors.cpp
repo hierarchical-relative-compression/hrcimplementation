@@ -2,8 +2,6 @@
 
 // This file will be the interface to the selected compressor.
 #include "hrlz/Compressors.hpp"
-#include "../../Legacy/hrlz/include/hrlz/CompressorGDC2.hpp"
-#include "../../Legacy/hrlz/include/hrlz/CompressorSCCG.hpp"
 #include "hrlz/CompressorIDoCompMax.hpp"
 #include "hrlz/file.hpp"
 #include "hrlz/CompressorHiRGCMax.hpp"
