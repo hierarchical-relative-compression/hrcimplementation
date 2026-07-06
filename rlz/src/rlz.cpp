@@ -289,7 +289,7 @@ std::size_t RLZCompress::compress(const char *file_to_parse, FactorWriter& write
   fseek(infile, 0L, SEEK_SET);
   data_type *seq = new data_type[seq_len + 1];
   if (seq_len != fread(seq, sizeof(data_type), seq_len, infile)) {
-      fprintf(stderr, "Error reading %lu bytes from file %s\n", seq_len, file_to_parse);
+      fprintf(stderr, "Error reading %lu bytes from file %s\n", static_cast<long unsigned int>(seq_len), file_to_parse);
       exit(1);
   }
   //Explanation of this: If we put an additional char on the reference set to 0, and an additional char on the target set
@@ -362,7 +362,7 @@ std::size_t RLZCompress::compress_fasta(const char *file_to_parse, FactorWriter&
     }
     data_type *seq = new data_type[seq_len + 1];
     if (seq_len != fread(seq, sizeof(data_type), seq_len, infile)) {
-        fprintf(stderr, "Error reading %lu bytes from file %s\n", seq_len, file_to_parse);
+        fprintf(stderr, "Error reading %lu bytes from file %s\n", static_cast<long unsigned int>(seq_len), file_to_parse);
         exit(1);
     }
     seq[seq_len] = 1; //??? 22.03.2021

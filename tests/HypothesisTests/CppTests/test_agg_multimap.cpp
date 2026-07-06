@@ -26,7 +26,7 @@ int test_agg_multimap(const std::vector<uint64_t>& elements, uint64_t param) {
     std::set<uint64_t> model;
     //Generate random values, we mostly care about the keys
     std::ranlux48_base gen { std::random_device{}() };
-    for (int i = 0; i < n; i++) {
+    for (size_t i = 0; i < n; i++) {
         size_t element = elements[i];
         table.insert_copy(element, gen());
         model.insert(element);

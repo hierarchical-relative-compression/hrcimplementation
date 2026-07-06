@@ -56,7 +56,19 @@ size_t brute_force_total_length(std::unique_ptr<FullTreeMetadata>& met) {
     return total_length;
 }
 
+void print_usage() {
+    const char *usage = R"(Usage:
+
+largest_path metadata
+
+Finds the longest path from a root to a leaf.)";
+}
+
 int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        print_usage();
+        std::exit(1);
+    }
     std::filesystem::path path = argv[1];
     std::unique_ptr<FullTreeMetadata> met = read_metadata_full_tree(path);
     //DFS

@@ -117,7 +117,7 @@ int lzFactorize(char *fileToParse, int seqno) {
     fseek(infile, 0L, SEEK_SET);
     data_type *sx = new data_type[sn + 1];
     if (sn != fread(sx, sizeof(data_type), sn, infile)) {
-        fprintf(stderr, "Error reading %lu bytes from file %s\n", sn, fileToParse);
+        fprintf(stderr, "Error reading %lu bytes from file %s\n", static_cast<long unsigned int>(sn), fileToParse);
         exit(1);
     }
     sx[sn] = 1; //??? 22.03.2021
@@ -149,7 +149,7 @@ int lzFactorize(char *fileToParse, int seqno) {
 
     while(i < _sn) {
         if(i > mark){
-           fprintf(stderr,"i = %lu; numFactors = %u\n",i,numfactors);
+           fprintf(stderr,"i = %lu; numFactors = %u\n",static_cast<long unsigned int>(i),numfactors);
            mark = mark + inc;
         }
         filelength_type pos = 0, len = 0;
@@ -290,7 +290,7 @@ int lzFactorize(char *fileToParse, int seqno) {
 
     
     fprintf(stderr, "number of factors = %d\n", numfactors);
-    fprintf(stderr, "average factor length = %ld\n", _sn/numfactors);
+    fprintf(stderr, "average factor length = %ld\n", static_cast<long unsigned int>(_sn)/numfactors);
     fprintf(stderr, "max. factor length = %d\n", maxFactorLength);
     //fprintf(stderr, "longFactors = %d\n", longFactors);
     //fprintf(stderr, "longFactorLength = %d\n", longFactorLength);

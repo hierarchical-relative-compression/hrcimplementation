@@ -228,15 +228,6 @@ namespace hirgc_mrmcmax {
         }
     }
 
-    void unzip_target(const std::filesystem::path& target, const std::filesystem::path& output_dir) {
-        std::string cmd = "7za x \"";
-        cmd.append(target.string()).append("\" -o\"").append(std::filesystem::canonical(output_dir).string()).append("\"").append(" >/dev/null");
-#ifndef NDEBUG
-        std::cout << "Calling 7za with " << cmd << std::endl;
-#endif
-        int ret = system(cmd.c_str());
-    }
-
     void huff_decode_target(const std::filesystem::path& target, const std::filesystem::path& output_file) {
         std::string cmd = DIR_FSE;
         cmd.append("/fse_exec -d \"").append(std::filesystem::canonical(target)).append("\" \"")
@@ -245,15 +236,6 @@ namespace hirgc_mrmcmax {
         if (ret != 0) {
             std::cerr << "WARNING: Call to Huffman encode returned exit code " << ret << std::endl;
         }
-    }
-
-    void rm_target_unzip_txt(const std::filesystem::path& target) {
-        std::string cmd = "rm \"";
-        cmd.append(target.c_str()).append("\"");
-#ifndef DEBUG
-        std::cout << "Calling rm with " << cmd << std::endl;
-#endif
-        int ret = system(cmd.c_str());
     }
 
     /**
@@ -314,3 +296,24 @@ namespace hirgc_mrmcmax {
         }
     }
 }
+
+/**
+* LEGACY
+ *  void unzip_target(const std::filesystem::path& target, const std::filesystem::path& output_dir) {
+        std::string cmd = "7za x \"";
+        cmd.append(target.string()).append("\" -o\"").append(std::filesystem::canonical(output_dir).string()).append("\"").append(" >/dev/null");
+#ifndef NDEBUG
+        std::cout << "Calling 7za with " << cmd << std::endl;
+#endif
+        int ret = system(cmd.c_str());
+    }
+
+    void rm_target_unzip_txt(const std::filesystem::path& target) {
+        std::string cmd = "rm \"";
+        cmd.append(target.c_str()).append("\"");
+#ifndef DEBUG
+        std::cout << "Calling rm with " << cmd << std::endl;
+#endif
+        int ret = system(cmd.c_str());
+    }
+*/

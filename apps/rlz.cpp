@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
     fseek(infile, 0, SEEK_SET);
     DynArray<data_type> x(n+1);
     if (n != fread(x.begin(), sizeof(data_type), n, infile)) {
-        fprintf(stderr, "Error reading %lu bytes from file %s\n", n, filename);
+        fprintf(stderr, "Error reading %lu bytes from file %s\n", static_cast<long unsigned int>(n), filename);
         exit(1);
     }
     x[n] = 0;
@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
     //}
     //std::cerr << "Avg. LCP: " << lcpsum/n << "\n";
 
-    fprintf(stderr, "Reference (size = %lu):\n\t", n);
+    fprintf(stderr, "Reference (size = %lu):\n\t", static_cast<long unsigned int>(n));
     //for (int bi = 0; bi < n; bi++) {
     //    fprintf(stderr, "%lu, ", x[bi]);
     //}

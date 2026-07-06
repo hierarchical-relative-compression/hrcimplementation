@@ -11,13 +11,13 @@ void zip(const std::filesystem::path& path, const std::filesystem::path& output_
     std::ostringstream oss;
     std::filesystem::path zip_path = output_dir / path.filename();
     const char *target_str = path.c_str();
-    const char *zip_str = zip_path.c_str();
+    //const char *zip_str = zip_path.c_str();
     oss << "7za a " << zip_path << ".7z \"" << target_str << "\" -m0=PPMd";
     std::string cmd = oss.str();
     std::cout << "Calling 7za with " << cmd << std::endl;
     system(cmd.c_str());
     oss.clear();
-    auto p = std::chrono::steady_clock::duration::zero();
+    //auto p = std::chrono::steady_clock::duration::zero();
 }
 /*
     std::stringstream os;
@@ -34,6 +34,8 @@ void gang(int64_t (*yap)(int, int)) {
 }
 
 int main(int argc, char *argv[]) {
+    (void)argc;
+    (void)argv;
     std::string test;
     uint64_t x = 7ULL;
     test += x;

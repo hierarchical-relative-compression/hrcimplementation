@@ -16,7 +16,7 @@ size_t root_size = 0;
 std::vector<std::string> chr_names;
 std::chrono::time_point<std::chrono::system_clock, std::chrono::system_clock::duration> start;
 
-void compress_hierarchy(const std::filesystem::path& met_path, const std::filesystem::path& out_folder, const std::string& metadata_name="metadata", int chr=0);
+void compress_hierarchy(const std::filesystem::path& met_path, const std::filesystem::path& out_folder, const std::string& metadata_name="metadata");
 
 int main(int argc, char *argv[]) {
     start = std::chrono::system_clock::now();
@@ -40,9 +40,7 @@ int main(int argc, char *argv[]) {
         std::string selected_compressor = argv[5];
         //Seems that C++ doesn't support switch statements on strings.
         if (selected_compressor == "rlz") Compressors::compressor_type = Compressors::RLZ;
-        else if (selected_compressor == "gdc2") Compressors::compressor_type = Compressors::GDC2;
         else if (selected_compressor == "hirgcmax") Compressors::compressor_type = Compressors::HIRGCMAX;
-        else if (selected_compressor == "sccg") Compressors::compressor_type = Compressors::SCCG;
         else if (selected_compressor == "idocompmax") Compressors::compressor_type = Compressors::IDOCOMPMAX;
         else {
             std::cerr << "The compressor is not supported. Available options: rlz, gdc2, hirgc, sccg" << std::endl;
@@ -58,7 +56,7 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-void compress_hierarchy(const std::filesystem::path& met_path, const std::filesystem::path& out_folder, const std::string& metadata_name, int chr) {
+void compress_hierarchy(const std::filesystem::path& met_path, const std::filesystem::path& out_folder, const std::string& metadata_name) {
     //Two tasks: Read external metadata to get the files and the arboricity, and compress
     std::unique_ptr<ExternalMetadata> met = read_external_metadata(met_path, metadata_name);
     int n = met->n_sequences;

@@ -25,9 +25,11 @@ void testuniv() {
 }
 
 int main(int argc, char *argv[]) {
-    uint64_t rand = 3;
+    (void)argc;
+    (void)argv;
+    //uint64_t rand = 3;
     TabulationHashing40 hash(3);
-    uint64_t key1 = 0x00000000FF0FF000;
+    //uint64_t key1 = 0x00000000FF0FF000;
     uint64_t key2 = 0x000000FFBBCDEB38;
     //std::cout << hash.hash(key1) << std::endl;
     std::cout << hash.hash(key2) << std::endl;

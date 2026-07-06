@@ -13,6 +13,8 @@
 int test_refs();
 
 int main(int argc, char *argv[]) {
+    (void)argc;
+    (void)argv;
     std::string my_string {"00"};
     int ret = compress_decompress_huffman_api(my_string);
     std::cerr << "compress_decompress_turbo returned " << ret << std::endl;
@@ -85,13 +87,13 @@ int test_refs() {
 }*/
 
 /**
-*     /*
+*
     size_t seed = 3;
     std::ranlux48_base gen { seed };
     std::cout << gen() << std::endl;
     std::cout << gen() << std::endl;
     std::cout << gen() << std::endl;
-    */
+*/
 /*
 std::string ar { "lolollollo" };
 std::ranlux48_base r{ std::random_device{}() };

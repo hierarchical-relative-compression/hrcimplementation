@@ -707,13 +707,6 @@ namespace hirgc_mrmcmax {
         std::filesystem::remove(file);
     }
 
-    void rm_target_txt(const std::filesystem::path& target) {
-        std::string cmd = "rm \"";
-        cmd.append(target.c_str()).append("\"");
-        std::cout << "Calling rm with " << cmd << std::endl;
-        int ret = system(cmd.c_str());
-    }
-
     void print_other_chars(std::ostream& out, POSITION_OTHER_CHAR *other_chars, std::size_t n_other_chars) {
         //There are 62 characters in the ASCII code from 'B' ('A' is a regular char) to code 127
         std::vector<int> i_char(62, -1);
@@ -806,5 +799,12 @@ Zipping a file:
             std::cerr << "Adaptive compression did not produce an output!!! Path: " << out_path << std::endl;
             std::exit(1);
         }
+    }
+
+    void rm_target_txt(const std::filesystem::path& target) {
+        std::string cmd = "rm \"";
+        cmd.append(target.c_str()).append("\"");
+        std::cout << "Calling rm with " << cmd << std::endl;
+        int ret = system(cmd.c_str());
     }
 */
