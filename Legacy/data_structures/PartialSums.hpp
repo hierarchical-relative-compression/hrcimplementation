@@ -11,9 +11,9 @@
 class PartialSums {
 public:
     //Initialize to the given vector
-    PartialSums(std::vector<size_t> arr) {}
+    PartialSums(std::vector<size_t> arr) {};
     //Initialize to zeros
-    PartialSums(size_t size) {}
+    PartialSums(size_t size) {};
     //Destructor
     virtual ~PartialSums() {}
     virtual size_t query(size_t i) = 0;

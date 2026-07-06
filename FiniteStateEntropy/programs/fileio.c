@@ -451,7 +451,7 @@ COMPRESSEDBLOCK
 STREAMCRC - 3 bytes (including 1-byte blockheader)
     22 bits (xxh32() >> 5) checksum of the original data, big endian
 */
-unsigned long long FIO_compress_stream(const FILE* output_filename, const FILE* input_filename)
+unsigned long long FIO_compress_stream(FILE* output_filename, FILE* input_filename)
 {
     U64 filesize = 0;
     U64 compressedfilesize = 0;
@@ -811,7 +811,7 @@ COMPRESSEDBLOCK
 STREAMCRC - 3 bytes (including 1-byte blockheader)
     22 bits (xxh32() >> 5) checksum of the original data, big endian
 */
-unsigned long long FIO_decompress_stream(const FILE* output_filename, const FILE* input_filename)
+unsigned long long FIO_decompress_stream(FILE* output_filename, FILE* input_filename)
 {
     FILE* finput = input_filename;
     FILE *foutput = output_filename;

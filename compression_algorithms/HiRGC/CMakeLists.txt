@@ -5,7 +5,7 @@ add_library(HiRGC STATIC
         hirgc_max.cpp
         include/hirgc/hirgc_max.hpp
         de_hirgc_max.cpp "${CMAKE_SOURCE_DIR}/hrlz/include/hrlz/RefDataStructure.hpp")
-target_link_libraries(HiRGC PRIVATE ArithmeticCoder utils fse)
+target_link_libraries(HiRGC PRIVATE utils fse)
 target_link_libraries(HiRGC PUBLIC Hashing)
 target_link_libraries(HiRGC PRIVATE common)
 target_include_directories(HiRGC PUBLIC "${CMAKE_SOURCE_DIR}/hrlz/include/hrlz")

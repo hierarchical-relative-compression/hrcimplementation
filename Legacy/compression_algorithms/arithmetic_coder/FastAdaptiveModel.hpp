@@ -7,7 +7,7 @@
 
 #include <stdexcept>
 #include <vector>
-#include "PartialSums.hpp"
+#include "../../data_structures/PartialSums.hpp"
 
 class FastAdaptiveModel
 {

@@ -17,7 +17,6 @@
 #include <cstdlib>
 #include <cmath>
 #include "utils/PrettyPrint.hpp"
-#include "AdaptiveScalingCoder.hpp"
 #include <chrono>
 #include <bit>
 #include "RefDataStructure.hpp"
@@ -659,19 +658,6 @@ namespace hirgc_mrmcmax {
         //std::cout << "Serialize time: " << format_time(dur) << std::endl;
     }
 
-    void HiRGCRef::encode_adaptive(std::iostream& out, size_t n, const std::filesystem::path& out_path) const {
-        //std::cout << "Finished serializing, adaptive compression now..." << std::endl;
-        //auto t_ac = std::chrono::steady_clock::now();
-        AdaptiveScalingCoder ac = AdaptiveScalingCoder(false);
-        ac.encode(out, n, out_path);
-        //auto dur_ac = (std::chrono::steady_clock::now() - t_ac).count();
-        //std::cout << "Time for adaptive compression: " << format_time(dur_ac) << std::endl;
-        if (!std::filesystem::exists(out_path)) {
-            std::cerr << "Adaptive compression did not produce an output!!! Path: " << out_path << std::endl;
-            std::exit(1);
-        }
-    }
-
     std::size_t count_factors(HiRGCTarget *target) {
         std::size_t n_factors = 0;
         n_factors += target->matches.size();
@@ -807,5 +793,18 @@ Zipping a file:
         std::size_t factors = count_factors(target_compressed);
         delete target_compressed;
         return factors;
+    }
+
+    void HiRGCRef::encode_adaptive(std::iostream& out, size_t n, const std::filesystem::path& out_path) const {
+        //std::cout << "Finished serializing, adaptive compression now..." << std::endl;
+        //auto t_ac = std::chrono::steady_clock::now();
+        AdaptiveScalingCoder ac = AdaptiveScalingCoder(false);
+        ac.encode(out, n, out_path);
+        //auto dur_ac = (std::chrono::steady_clock::now() - t_ac).count();
+        //std::cout << "Time for adaptive compression: " << format_time(dur_ac) << std::endl;
+        if (!std::filesystem::exists(out_path)) {
+            std::cerr << "Adaptive compression did not produce an output!!! Path: " << out_path << std::endl;
+            std::exit(1);
+        }
     }
 */

@@ -5,10 +5,9 @@
 #include <random>
 #include <test_idocomp_max.hpp>
 
-#include "test_arith.hpp"
+#include "../../../Legacy/tests/HypothesisTests/CppTests/test_arith.hpp"
 
 #include "test_compress_rlz.hpp"
-#include "test_compress_idocomp.hpp"
 #include "test_finitestateentropy.hpp"
 
 int test_refs();
@@ -20,6 +19,8 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 /*
+ *
+#include "../../../Legacy/tests/HypothesisTests/CppTests/test_compress_idocomp.hpp"
 int test_refs() {
 
     std::filesystem::path ref_path = "/tmp/ref1.fasta";

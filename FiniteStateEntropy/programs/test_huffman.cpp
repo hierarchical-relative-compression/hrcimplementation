@@ -40,7 +40,8 @@ int main(int argc, char *argv[]) {
     }
     //Check
     for (size_t i = 0; i < text_size; i++) {
-        if (!my_text[i] == dec_buf[i]) {
+        if (my_text[i] != dec_buf[i]) {
+            delete[] dec_buf;
             return i;
         }
     }

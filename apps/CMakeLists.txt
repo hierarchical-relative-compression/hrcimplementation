@@ -30,11 +30,6 @@ add_executable(access access.cpp)
 
 target_link_libraries(access PRIVATE accessLib)
 
-#Max: Make gdc2 executable
-add_executable(gdc2_exec gdc2.cpp)
-#Link it to the header
-target_link_libraries(gdc2_exec PRIVATE GDC2)
-
 add_executable(hirgc_max_exec hirgc_max_exec.cpp)
 target_link_libraries(hirgc_max_exec HiRGC)
 target_link_libraries(hirgc_max_exec fse)
@@ -58,3 +53,10 @@ target_link_libraries(largest_path PRIVATE hrlzLib)
 
 add_executable(rlz_exec rlz_exec.cpp)
 target_link_libraries(rlz_exec PRIVATE rlzLib Encoders)
+
+#[[
+#Max: Make gdc2 executable
+add_executable(gdc2_exec gdc2.cpp)
+#Link it to the header
+target_link_libraries(gdc2_exec PRIVATE GDC2)
+]]

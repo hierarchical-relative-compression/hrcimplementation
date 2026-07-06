@@ -41,6 +41,8 @@ int test_empty_graph() {
 }
 
 int main(int argc, char *argv[]) {
+    (void)argc;
+    (void)argv;
     return test_empty_graph();
 }
 

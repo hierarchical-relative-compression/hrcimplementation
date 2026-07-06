@@ -5,7 +5,6 @@
 #include "include/iDoCompMax/iDoCompMaxMain.hpp"
 #include "include/iDoCompMax/matching_rlz.hpp"
 #include "include/iDoCompMax/iDoCompMaxPostprocessing.hpp"
-#include "AdaptiveScalingCoder.hpp"
 #include "utils/PrettyPrint.hpp"
 #include <iostream>
 #include <filesystem>

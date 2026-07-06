@@ -64,8 +64,8 @@ FIO_decompressFilename :
     result : size of regenerated file
 */
 //Max: these functions are to compress an arbitrary stream (could be in-memory)
-unsigned long long FIO_compress_stream(const FILE* output_filename, const FILE* input_filename);
-unsigned long long FIO_decompress_stream(const FILE* outfilename, const FILE* infilename);
+unsigned long long FIO_compress_stream(FILE* output_filename, FILE* input_filename);
+unsigned long long FIO_decompress_stream(FILE* outfilename, FILE* infilename);
 
 
 #if defined (__cplusplus)

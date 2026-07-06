@@ -3,7 +3,6 @@
 //
 
 #include "include/hirgc/hirgc_max.hpp"
-#include "AdaptiveScalingCoder.hpp"
 #include <cstring>
 #include <iostream>
 #include <cmath>

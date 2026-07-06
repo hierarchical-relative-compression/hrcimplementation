@@ -1,7 +1,7 @@
 #ifndef SOURCE_DIRECTORY__HRLZ_INCLUDE_HRLZ_COMPRESSORGDC2_HPP_
 #define SOURCE_DIRECTORY__HRLZ_INCLUDE_HRLZ_COMPRESSORGDC2_HPP_
 
-#include <HuffmanFile.hpp>
+#include "HuffmanFile.hpp"
 
 #include "hrlz/Compressors.hpp"
 

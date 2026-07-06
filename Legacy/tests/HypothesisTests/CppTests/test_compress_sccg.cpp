@@ -4,7 +4,7 @@
 
 
 #include "test_compress_sccg.hpp"
-#include "hrlz/CompressorSCCG.hpp"
+#include "../../../hrlz/include/hrlz/CompressorSCCG.hpp"
 #include "utils_tests.hpp"
 #include <filesystem>
 #include <fstream>
