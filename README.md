@@ -1,3 +1,9 @@
+Contact Máximo Pérez López (mpelo@dtu.dk, maxiplopez@gmail.com) for support.
+# Updates
+
+06-07-2026: Removed legacy programs
+07-07-2026: Added standalone compilations for hirgc_exec, idocomp_exec and rlz_exec
+
 # Contents
 
 This repository contains all the code and scripts used in the paper "From Relative Compression to Hierarchical Compression" by Philip Bille, Inge Li Gørtz and Máximo Pérez López. The repository includes the sources for the main program that computes relative or hierarchical compression with any of the three relative compression algorithms discussed in the paper (HiRGC, iDoComp and RLZ). It also contains the sources of the custom, stand-alone re-implementations of these three compression algorithms, plus the programs to compute suffix arrays.
@@ -46,7 +52,7 @@ The available options for `hrlz` are:
 - `-o directory`: If decompressing (setting -d above), selects the specified directory for the decompressed output.
 - `--rlz root_id`: Instead of compressing with hierarchical compression, compresses with relative compression with the specified root (`root_id` is the 0-based index of the desired root in the list of sequences provided as the first argument)
 - `--test_rels perc`: Tests a random sample of `perc%` of the sequences as roots of relative compression, and outputs the size of the best one (or stores the compressed database, if `-c` was used). Example: `--test_rels 0.5` tests a 0.5% of all the relative compressions.
-- `--compressor hirgcmax|idocompmax|rlz` : chooses HiRGC, iDoComp or RLZ as the underlying relative compression algorithm. The default is `rlz`.
+- `--compressor hirgc|idocomp|rlz` : chooses HiRGC, iDoComp or RLZ as the underlying relative compression algorithm. The default is `rlz`.
 - `--print_graph`: Will print the sparsified graph that was computed using the fingerprints. It will be stored as a file `graph.txt`, that can be loaded with the next option.
 - `--load_graph path/to/graph.txt`: loads a specific graph to be used for the hierarchy computation, instead of computing one from scratch.
 - `--sketch_size q`: sets the fingerprint size to `q` (`q` different hash functions will be used to compute the min-hash). The default is 4.
@@ -69,7 +75,26 @@ To perform relative compression instead, testing 0.5% of the possible roots:
 
 ### HiRGC, iDoComp and RLZ
 
-Writing in progress...
+We provide standalone implementations of the relative compressors HiRGC, iDoComp and RLZ that we use as part of the hierarchical relative compression package. Using a general compilation script (`cmake_compile.sh` and its other versions) we will find the binaries `hirgc_exec`, `idocomp_exec` and `rlz_exec` in the `build/apps` folder. Alternatively, we can choose to compile just these with the `hirgc_compile.sh`, `idocomp_compile.sh` or `rlz_compile.sh` scripts.
+
+To compress with `hirgc_exec` or `idocomp_exec`, we follow this command:
+
+`hirgc_exec -c reference_file target_file output_dir`
+
+where `reference_file` is the path to the reference, `target_file` is the path to a single target to compress, and `output_dir` is the output directory where the compressed target will be stored. The program allows relative paths too.
+
+To decompress, use the command:
+
+`hirgc_exec -d reference_file target_file output_dir [target_original_filename]`
+
+where `reference_file` is the uncompressed reference (the same file as when compressing), `target_file` is the compressed target, `output_dir` is the output directory for the decompressed target, and `target_original_filename` is an optional parameter specifiying the name of the output file.
+
+When using `idocomp_exec` or `rlz_exec`, the interface is the same. However, note that both iDoComp and RLZ require the suffix array of the reference to be available for parsing. The suffix array must be stored in a file with the exact same name as `reference_file` plus the extension `.sa`, and in the same directory as the reference. To construct the suffix array of a file, one can use the program `sa_fasta` (built automatically in `build/apps/` when executing `idocomp_exec` or `rlz_exec`). The following command will create the required suffix array for the reference:
+
+`sa_fasta reference_file reference_file.sa`
+
+The program `sa_fasta` essentially runs *divsufsort* on `reference_file` but skips the first FASTA definition line, so that it doesn't pollute the suffix array.
+ 
 ### compress_hierarchy
 
 Writing in progress...
