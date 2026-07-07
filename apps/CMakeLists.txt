@@ -36,6 +36,7 @@ target_link_libraries(hirgc_exec fse)
 
 add_executable(idocomp_exec iDoCompMaxExec.cpp)
 target_link_libraries(idocomp_exec iDoCompMaxLib fse)
+add_dependencies(idocomp_exec link_sa_fasta)
 
 #Random tests
 add_executable(test_function test_function.cpp)
@@ -53,6 +54,7 @@ target_link_libraries(largest_path PRIVATE hrlzLib)
 
 add_executable(rlz_exec rlz_exec.cpp)
 target_link_libraries(rlz_exec PRIVATE rlzLib Encoders)
+add_dependencies(rlz_exec link_sa_fasta)
 
 #[[
 #Max: Make gdc2 executable
