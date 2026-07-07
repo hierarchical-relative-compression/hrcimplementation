@@ -166,6 +166,10 @@ DynArray<std::filesystem::path> read_input_file(const std::filesystem::path& pat
     std::cerr << "FILE DOESN'T EXIST! File: " << std::endl;
     std::cerr << path << std::endl;
   }
+  //Max: If we run the executable hrlz from a different path than the input file, and the paths included are relative,
+  //then we will be in trouble, because we read the relative paths explicitly without conversion to our current path.
+  //Therefore, we will change directory to the file named by path.
+  std::filesystem::current_path(path.parent_path());
   std::ifstream file;
   file.exceptions(std::ifstream::badbit);
   file.open(path, std::ifstream::in);
