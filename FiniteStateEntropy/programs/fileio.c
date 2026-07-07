@@ -451,7 +451,7 @@ COMPRESSEDBLOCK
 STREAMCRC - 3 bytes (including 1-byte blockheader)
     22 bits (xxh32() >> 5) checksum of the original data, big endian
 */
-unsigned long long FIO_compress_stream(const FILE* output_filename, const FILE* input_filename)
+unsigned long long FIO_compress_stream(FILE* output_filename, FILE* input_filename)
 {
     U64 filesize = 0;
     U64 compressedfilesize = 0;
@@ -499,8 +499,7 @@ unsigned long long FIO_compress_stream(const FILE* output_filename, const FILE* 
         /* Fill input Buffer */
         size_t cSize;
         size_t const inSize = fread(in_buff, (size_t)1, (size_t)inputBlockSize, finput);
-        DISPLAYLEVEL(6, "reading %zu bytes from input (%s)\n",
-                        inSize, input_filename);
+        DISPLAYLEVEL(6, "reading %zu bytes from input stream\n", inSize);
         if (inSize==0) break;
         filesize += inSize;
         XXH32_update(&xxhState, in_buff, inSize);
@@ -811,7 +810,7 @@ COMPRESSEDBLOCK
 STREAMCRC - 3 bytes (including 1-byte blockheader)
     22 bits (xxh32() >> 5) checksum of the original data, big endian
 */
-unsigned long long FIO_decompress_stream(const FILE* output_filename, const FILE* input_filename)
+unsigned long long FIO_decompress_stream(FILE* output_filename, FILE* input_filename)
 {
     FILE* finput = input_filename;
     FILE *foutput = output_filename;

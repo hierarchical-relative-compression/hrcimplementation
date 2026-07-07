@@ -24,7 +24,7 @@ Fingerprint Fingerprint::bottom_k_hash(const DynArray<char>& file, const TwoArra
     int key_whole = hash.array1_size() << 2; //Mult by 4
     int key_remainder = hash.array2_size();
     int key_size = key_whole + key_remainder;
-    assert(file.size() >= key_size);
+    assert(file.size() >= static_cast<long unsigned int>(key_size));
     Fingerprint fingerprint(k);
     std::set<size_t> bottom_k; //It is ordered
     size_t n = file.size();

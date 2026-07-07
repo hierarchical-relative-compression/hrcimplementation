@@ -316,7 +316,7 @@ std::unique_ptr<std::set<WeightedEdge>> compute_approx_weights(const AdjacencyLi
 /**
 * LEGACY CODE
  *
- *     /*
+ *
     if (Compressors::compressor_type == Compressors::RLZ) {
         #pragma omp parallel for
         for (std::size_t from = 0; from < adj_list.node_count(); ++from) {
@@ -340,4 +340,4 @@ std::unique_ptr<std::set<WeightedEdge>> compute_approx_weights(const AdjacencyLi
         }
 
     } else {
-     */
+*/

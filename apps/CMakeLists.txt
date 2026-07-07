@@ -30,17 +30,13 @@ add_executable(access access.cpp)
 
 target_link_libraries(access PRIVATE accessLib)
 
-#Max: Make gdc2 executable
-add_executable(gdc2_exec gdc2.cpp)
-#Link it to the header
-target_link_libraries(gdc2_exec PRIVATE GDC2)
+add_executable(hirgc_exec hirgc_max_exec.cpp)
+target_link_libraries(hirgc_exec HiRGC)
+target_link_libraries(hirgc_exec fse)
 
-add_executable(hirgc_max_exec hirgc_max_exec.cpp)
-target_link_libraries(hirgc_max_exec HiRGC)
-target_link_libraries(hirgc_max_exec fse)
-
-add_executable(iDoCompMaxExec iDoCompMaxExec.cpp)
-target_link_libraries(iDoCompMaxExec iDoCompMaxLib fse)
+add_executable(idocomp_exec iDoCompMaxExec.cpp)
+target_link_libraries(idocomp_exec iDoCompMaxLib fse)
+add_dependencies(idocomp_exec link_sa_fasta)
 
 #Random tests
 add_executable(test_function test_function.cpp)
@@ -58,3 +54,11 @@ target_link_libraries(largest_path PRIVATE hrlzLib)
 
 add_executable(rlz_exec rlz_exec.cpp)
 target_link_libraries(rlz_exec PRIVATE rlzLib Encoders)
+add_dependencies(rlz_exec link_sa_fasta)
+
+#[[
+#Max: Make gdc2 executable
+add_executable(gdc2_exec gdc2.cpp)
+#Link it to the header
+target_link_libraries(gdc2_exec PRIVATE GDC2)
+]]

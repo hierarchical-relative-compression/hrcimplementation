@@ -12,7 +12,7 @@ target_link_libraries(GDC2 PUBLIC -lz -lm -lpthread)
 
 #Import static library
 add_library(ASM STATIC IMPORTED)
-set_property(TARGET ASM PROPERTY IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/../libs/libaelf64.a)
+set_property(TARGET ASM PROPERTY IMPORTED_LOCATION ../libs/libaelf64.a)
 
 #Specify that GDC2 depends on ASM to compile
 target_link_libraries(GDC2 PUBLIC ASM)

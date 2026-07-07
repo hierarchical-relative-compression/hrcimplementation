@@ -1,5 +1,5 @@
 add_library(iDoCompMaxLib iDoCompMaxMain.cpp matching_rlz.cpp iDoCompMaxPostprocessing.cpp)
-target_link_libraries(iDoCompMaxLib PRIVATE ArithmeticCoder utils fse)
+target_link_libraries(iDoCompMaxLib PRIVATE utils fse)
 target_link_libraries(iDoCompMaxLib PRIVATE common)
 #Specify include directories
 target_include_directories(iDoCompMaxLib INTERFACE "include")

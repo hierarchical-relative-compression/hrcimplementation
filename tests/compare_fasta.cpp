@@ -22,7 +22,21 @@ void skip_fasta_line(std::ifstream& file) {
     }
 }
 
+void print_usage() {
+    const char *usage = R"(Usage:
+
+    $compare_fasta file1 file2
+
+    Compares the DNA strings of the two files, skipping a leading FASTA line if it's there, and skipping any whitespace.)";
+    std::cout << usage << std::endl;
+}
+
+
 int main(int argc, char *argv[]) {
+    if (argc < 3) {
+        print_usage();
+        std::exit(1);
+    }
     std::ifstream file1; 
     std::ifstream file2;
     file1.exceptions(std::ifstream::badbit);

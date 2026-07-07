@@ -8,6 +8,16 @@
 #include <string.h>
 #include "code.h"
 
+void print_usage() {
+    const char *usage = R"(Usage:
+        Compress:
+        shuff_fasta -c in_file out_file[no extension]
+        Decompress:
+        shuff_fasta -d in_file[no extension] out_file)";
+    std::cout << usage << std::endl;
+    std::exit(1);
+}
+
 int main(int argc, char *argv[]) {
     /**
      * Usage:
@@ -16,6 +26,9 @@ int main(int argc, char *argv[]) {
      * Decompress:
      * shuff_fasta -d in_file[no extension] out_file
      */
+    if (argc < 4) {
+        print_usage();
+    }
     if (strncmp(argv[1], "-c", 2) == 0) {
         //Do not encode FASTA line if it's there
         FILE *in_stream = fopen(argv[2], "rb");

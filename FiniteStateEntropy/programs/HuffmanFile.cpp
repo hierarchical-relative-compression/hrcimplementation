@@ -188,7 +188,7 @@ void HuffmanEncoder::encode_executable(const std::filesystem::path &in_path,
 
 void HuffmanEncoder::encode_C_stream(FILE *in_stream, FILE *out_stream) const {
     BMK_SetByteCompressor(1);
-    FIO_compressor_t compressor = FIO_fse;
+    //FIO_compressor_t compressor = FIO_fse;
     FIO_setDisplayLevel(2);
     FIO_compress_stream(out_stream, in_stream);
 }

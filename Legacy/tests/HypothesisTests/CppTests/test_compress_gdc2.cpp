@@ -3,7 +3,7 @@
 //
 
 #include "test_compress_gdc2.hpp"
-#include "hrlz/CompressorGDC2.hpp"
+#include "../../../hrlz/include/hrlz/CompressorGDC2.hpp"
 #include "utils_tests.hpp"
 #include <filesystem>
 #include <fstream>

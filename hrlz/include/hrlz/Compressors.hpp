@@ -22,7 +22,7 @@ namespace Compressors {
     static const bool output_raw = false;
 
 	enum Compressor_Types {
-		RLZ, GDC2, HIRGCMAX, SCCG, IDOCOMPMAX
+		RLZ, HIRGCMAX, IDOCOMPMAX
 	};
 
     enum Encoding_Types {

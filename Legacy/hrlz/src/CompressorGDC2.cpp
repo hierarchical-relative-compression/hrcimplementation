@@ -1,4 +1,4 @@
-#include "hrlz/CompressorGDC2.hpp"
+#include "../include/hrlz/CompressorGDC2.hpp"
 #include "hrlz/file.hpp"
 #include "gdc2/gdc2.hpp"
 #include <sys/wait.h>

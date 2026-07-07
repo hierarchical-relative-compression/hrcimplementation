@@ -81,6 +81,7 @@ int write_string_to_fd(int fd_ctrl, const std::string& string) {
  * terminate.
 */
 int main(int argc, char *argv[]) {
+    (void)argc;
     int fd_ctrl;
     try {
         fd_ctrl = std::stoi(argv[1]);

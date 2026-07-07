@@ -90,14 +90,14 @@ sufcheck(const unsigned char *T, const unsigned int *SA, unsigned int n, int ver
     }
 
     /* Check arguments. */
-    if((T == NULL) || (SA == NULL) || (n < 0)) {
+    if((T == NULL) || (SA == NULL)) {
         if(verbose) { fprintf(stderr, "Invalid arguments.\n"); }
         return -1;
     }
 
     /* check range: [0..n-1] */
     for(i = 0; i < n; ++i) {
-        if((SA[i] < 0) || (n <= SA[i])) {
+        if(n <= SA[i]) {
             if(verbose) {
                 fprintf(stderr, "Out of the range [0,%d].\n"
                                 "  SA[%d]=%d\n",
@@ -139,12 +139,12 @@ sufcheck(const unsigned char *T, const unsigned int *SA, unsigned int n, int ver
             c = T[p = n - 1];
             t = q;
         }
-        if((t < 0) || (p != SA[t])) {
+        if(p != SA[t]) {
             if(verbose) {
                 fprintf(stderr, "Suffix in wrong position.\n"
                                 "  SA[%d]=%d or\n"
                                 "  SA[%d]=%d\n",
-                                t, (0 <= t) ? SA[t] : -1, i, SA[i]);
+                                t, SA[t], i, SA[i]);
             }
             return -4;
         }

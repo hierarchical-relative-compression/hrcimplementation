@@ -2,10 +2,10 @@
 // Created by mpelo on 4/11/24.
 //
 #include "SCCGLib/testPipe.hpp"
-#include "hrlz/CompressorSCCG.hpp"
+#include "../include/hrlz/CompressorSCCG.hpp"
 #include <queue>
 #include <filesystem>
-#include <HuffmanFile.hpp>
+#include "HuffmanFile.hpp"
 #include <iostream>
 
 namespace Compressors {

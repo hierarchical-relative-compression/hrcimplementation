@@ -10,7 +10,7 @@
 
 void hirgc_compress(FILE *in, FILE *out) {
     BMK_SetByteCompressor(1);
-    FIO_compressor_t compressor = FIO_fse;
+    //FIO_compressor_t compressor = FIO_fse;
     FIO_setDisplayLevel(2);
     FIO_compress_stream(out, in);
 }
@@ -23,8 +23,8 @@ void compress_bytes(char *buf_in, FILE *out, int n) {
 
 void idocomp_compress(FILE *in, FILE *out) {
     //The fasta line has been handled
-    int size_t, size_m, size_s, size_i;
-    if (fread(&size_t, 4, 1, in) != 1)
+    int size_tar, size_m, size_s, size_i;
+    if (fread(&size_tar, 4, 1, in) != 1)
         throw std::runtime_error("Can't read size_target");
     if (fread(&size_m, 4, 1, in) != 1)
         throw std::runtime_error("Can't read size_m");
@@ -32,28 +32,49 @@ void idocomp_compress(FILE *in, FILE *out) {
         throw std::runtime_error("Can't read size_s");
     if (fread(&size_i, 4, 1, in) != 1)
         throw std::runtime_error("Can't read size_i");
-    fwrite(&size_t, 4, 1, out);
+    fwrite(&size_tar, 4, 1, out);
     fwrite(&size_m, 4, 1, out);
     fwrite(&size_s, 4, 1, out);
     fwrite(&size_i, 4, 1, out);
     //Run FSE once on the ints
-    int n_ints = 2 * size_m + size_s + size_i;
+    size_t n_ints = 2 * size_m + size_s + size_i;
     BMK_SetByteCompressor(1);
     FIO_setDisplayLevel(2);
     char *bytes = new char[n_ints];
-    fread(bytes, 1, n_ints, in);
+    size_t read;
+    read = fread(bytes, 1, n_ints, in);
+    if (read < n_ints) {
+        delete[] bytes;
+        throw std::runtime_error("FSE: Error reading first byte sequence");
+    }
     compress_bytes(bytes, out, n_ints);
-    fread(bytes, 1, n_ints, in);
+    read = fread(bytes, 1, n_ints, in);
+    if (read < n_ints) {
+        delete[] bytes;
+        throw std::runtime_error("FSE: Error reading second byte sequence");
+    }
     compress_bytes(bytes, out, n_ints);
-    fread(bytes, 1, n_ints, in);
+    read = fread(bytes, 1, n_ints, in);
+    if (read < n_ints) {
+        delete[] bytes;
+        throw std::runtime_error("FSE: Error reading third byte sequence");
+    }
     compress_bytes(bytes, out, n_ints);
-    fread(bytes, 1, n_ints, in);
+    read = fread(bytes, 1, n_ints, in);
+    if (read < n_ints) {
+        delete[] bytes;
+        throw std::runtime_error("FSE: Error reading fourth byte sequence");
+    }
     compress_bytes(bytes, out, n_ints);
     //Now chars
     delete[] bytes;
-    int n_chars = size_m + size_s + size_i;
+    size_t n_chars = size_m + size_s + size_i;
     char *chars = new char[n_chars];
-    fread(chars, 1, n_chars, in);
+    read = fread(chars, 1, n_chars, in);
+    if (read < n_chars) {
+        delete[] chars;
+        throw std::runtime_error("FSE: Error reading char sequence");
+    }
     compress_bytes(chars, out, n_chars);
     delete[] chars;
     //Now signs, which is all the way to the end
@@ -66,8 +87,8 @@ void hirgc_decompress(FILE *in, FILE *out) {
 }
 
 void idocomp_decompress(FILE *in, FILE *out) {
-    int size_t, size_m, size_s, size_i;
-    if (fread(&size_t, 4, 1, in) != 1)
+    int size_tar, size_m, size_s, size_i;
+    if (fread(&size_tar, 4, 1, in) != 1)
         throw std::runtime_error("Can't read size_target");
     if (fread(&size_m, 4, 1, in) != 1)
         throw std::runtime_error("Can't read size_m");
@@ -75,7 +96,7 @@ void idocomp_decompress(FILE *in, FILE *out) {
         throw std::runtime_error("Can't read size_s");
     if (fread(&size_i, 4, 1, in) != 1)
         throw std::runtime_error("Can't read size_i");
-    fwrite(&size_t, 4, 1, out);
+    fwrite(&size_tar, 4, 1, out);
     fwrite(&size_m, 4, 1, out);
     fwrite(&size_s, 4, 1, out);
     fwrite(&size_i, 4, 1, out);

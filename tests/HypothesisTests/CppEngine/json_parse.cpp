@@ -18,15 +18,10 @@
 #include "json.hpp"
 using json = nlohmann::json;
 #include "json_parse.hpp"
-#include "test_compress_idocomp.hpp"
 #include "test_compress_hirgc_max.hpp"
-#include "test_compress_sccg.hpp"
-#include "test_compress_gdc2.hpp"
 #include "test_idocomp_max.hpp"
-#include "test_arith.hpp"
 #include "iDoCompMax/matching_rlz.hpp"
 #include "iDoCompMax/iDoCompMaxPostprocessing.hpp"
-#include "test_partial_sums.hpp"
 #include "test_agg_multimap.hpp"
 #include "test_compress_rlz.hpp"
 #include "test_finitestateentropy.hpp"
@@ -73,11 +68,11 @@ std::unique_ptr<std::string> function_call(json fn_obj) {
         int b = fn_obj["args"]["1"].template get<int>();
         std::string ret = my_function(a, b);
         return json_return(ret);
-    } else if (fn_name == "test_idocomp_compress_decompress") {
-        std::string ref_fasta = fn_obj["args"]["0"].template get<std::string>();
-        std::string target_fasta = fn_obj["args"]["1"].template get<std::string>();
-        int64_t ret = test_idocomp_compress_decompress(ref_fasta, target_fasta);
-        return json_return(std::to_string(ret));
+//    } else if (fn_name == "test_idocomp_compress_decompress") {
+//        std::string ref_fasta = fn_obj["args"]["0"].template get<std::string>();
+//        std::string target_fasta = fn_obj["args"]["1"].template get<std::string>();
+//        int64_t ret = test_idocomp_compress_decompress(ref_fasta, target_fasta);
+//        return json_return(std::to_string(ret));
     } else if (fn_name == "test_rlz_compress_decompress") {
         std::string ref_fasta = fn_obj["args"]["0"].template get<std::string>();
         std::string target_fasta = fn_obj["args"]["1"].template get<std::string>();
@@ -89,16 +84,16 @@ std::unique_ptr<std::string> function_call(json fn_obj) {
         uint64_t random = fn_obj["args"]["2"].template get<uint64_t>();
         int64_t ret = test_compress_hirgcmax(ref_fasta, target_fasta, random);
         return json_return(std::to_string(ret));
-    } else if (fn_name == "test_compress_sccg") {
-        std::string ref_fasta = fn_obj["args"]["0"].template get<std::string>();
-        std::string target_fasta = fn_obj["args"]["1"].template get<std::string>();
-        int64_t ret = test_compress_sccg(ref_fasta, target_fasta);
-        return json_return(std::to_string(ret));
-    } else if (fn_name == "test_compress_gdc2") {
-        std::string ref_fasta = fn_obj["args"]["0"].template get<std::string>();
-        std::string target_fasta = fn_obj["args"]["1"].template get<std::string>();
-        int64_t ret = test_compress_gdc2(ref_fasta, target_fasta);
-        return json_return(std::to_string(ret));
+//    } else if (fn_name == "test_compress_sccg") {
+//        std::string ref_fasta = fn_obj["args"]["0"].template get<std::string>();
+//        std::string target_fasta = fn_obj["args"]["1"].template get<std::string>();
+//        int64_t ret = test_compress_sccg(ref_fasta, target_fasta);
+//        return json_return(std::to_string(ret));
+//    } else if (fn_name == "test_compress_gdc2") {
+//        std::string ref_fasta = fn_obj["args"]["0"].template get<std::string>();
+//        std::string target_fasta = fn_obj["args"]["1"].template get<std::string>();
+//        int64_t ret = test_compress_gdc2(ref_fasta, target_fasta);
+//        return json_return(std::to_string(ret));
     } else if (fn_name == "test_idocomp_parse_rlz") {
         std::string ref_str = fn_obj["args"]["0"].template get<std::string>();
         std::string target_str = fn_obj["args"]["1"].template get<std::string>();
@@ -136,22 +131,22 @@ std::unique_ptr<std::string> function_call(json fn_obj) {
                                            {"ch",      sub.ch}});
         }
         return std::make_unique<std::string>(j.dump());
-    } else if (fn_name == "test_arith") {
-        std::string str = fn_obj["args"]["0"].template get<std::string>();
-        int64_t ret = compress_decompress_arith(str);
-        return json_return(std::to_string(ret));
+//    } else if (fn_name == "test_arith") {
+//        std::string str = fn_obj["args"]["0"].template get<std::string>();
+//        int64_t ret = compress_decompress_arith(str);
+//        return json_return(std::to_string(ret));
     } else if (fn_name == "test_idocompmax_insertions_decomp") {
         std::string ref_fasta = fn_obj["args"]["0"].template get<std::string>();
         std::string target_fasta = fn_obj["args"]["1"].template get<std::string>();
         int64_t ret = test_idocompmax_insertions_decomp(ref_fasta, target_fasta);
         return json_return(std::to_string(ret));
-    } else if (fn_name == "test_partial_sums") {
-        std::vector<size_t> init = fn_obj["args"]["0"].template get<std::vector<size_t>>();
-        std::vector<std::string> instructions = fn_obj["args"]["1"].template get<std::vector<std::string>>();
-        std::vector<size_t> ret = test_partial_sums(init, instructions);
-        json ret_obj;
-        ret_obj["return"] = ret;
-        return std::make_unique<std::string>(ret_obj.dump());
+//    } else if (fn_name == "test_partial_sums") {
+//        std::vector<size_t> init = fn_obj["args"]["0"].template get<std::vector<size_t>>();
+//        std::vector<std::string> instructions = fn_obj["args"]["1"].template get<std::vector<std::string>>();
+//        std::vector<size_t> ret = test_partial_sums(init, instructions);
+//        json ret_obj;
+//        ret_obj["return"] = ret;
+//        return std::make_unique<std::string>(ret_obj.dump());
     } else if (fn_name == "test_agg_multimap") {
         std::vector<size_t> elements = fn_obj["args"]["0"].template get<std::vector<size_t>>();
         uint64_t param = fn_obj["args"]["1"].template get<size_t>();

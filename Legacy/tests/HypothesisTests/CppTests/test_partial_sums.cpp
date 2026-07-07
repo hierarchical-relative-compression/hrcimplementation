@@ -5,11 +5,11 @@
 #include "HRLZTests.h"
 
 #include "test_partial_sums.hpp"
-#include "PartialSums.hpp"
+#include "../../../data_structures/PartialSums.hpp"
 #include <iostream>
 #include <sstream>
 
-#include "../CppEngine/json.hpp"
+#include "../../../../tests/HypothesisTests/CppEngine/json.hpp"
 using json = nlohmann::json;
 
 char *test_partial_sums(char *json_str, uint64_t n_json) {

@@ -5,21 +5,24 @@
 #include <random>
 #include <test_idocomp_max.hpp>
 
-#include "test_arith.hpp"
+#include "../../../Legacy/tests/HypothesisTests/CppTests/test_arith.hpp"
 
 #include "test_compress_rlz.hpp"
-#include "test_compress_idocomp.hpp"
 #include "test_finitestateentropy.hpp"
 
 int test_refs();
 
 int main(int argc, char *argv[]) {
+    (void)argc;
+    (void)argv;
     std::string my_string {"00"};
     int ret = compress_decompress_huffman_api(my_string);
     std::cerr << "compress_decompress_turbo returned " << ret << std::endl;
     return 0;
 }
 /*
+ *
+#include "../../../Legacy/tests/HypothesisTests/CppTests/test_compress_idocomp.hpp"
 int test_refs() {
 
     std::filesystem::path ref_path = "/tmp/ref1.fasta";
@@ -84,13 +87,13 @@ int test_refs() {
 }*/
 
 /**
-*     /*
+*
     size_t seed = 3;
     std::ranlux48_base gen { seed };
     std::cout << gen() << std::endl;
     std::cout << gen() << std::endl;
     std::cout << gen() << std::endl;
-    */
+*/
 /*
 std::string ar { "lolollollo" };
 std::ranlux48_base r{ std::random_device{}() };

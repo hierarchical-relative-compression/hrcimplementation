@@ -895,11 +895,11 @@ void hrlz_compress(const DynArray<std::filesystem::path>& files, int chr) {
 
 /**
  * LEGACY CODE THAT MIGHT BE USEFUL LATER
- * */
+ *
 
 
-/* Print individual edge weights */
-/*
+//Print individual edge weights
+
 ProfilerSteady::profile("report_result", [&]() {
 report_edges(std::cout, arbor, root_id, root_size);
 });
@@ -909,8 +909,8 @@ report_edges(std::cout, arbor, root_id, root_size);
    //RLZ uses BFS order pre-computed. The other compression schemes do it themselves
 
   if (Compressors::compressor_type == Compressors::RLZ) {
-    /**
-      * The next step is to just order the edges of the arboricity in a BFS order.
+
+      // The next step is to just order the edges of the arboricity in a BFS order.
 
 std::vector<Edge> bfs_ordered_edges;
 
@@ -918,8 +918,8 @@ ProfilerSteady::profile("bfs_order", [&]() {
 bfs_ordered_edges = bfs_order_edges(arbor, files.size(), root_id);
 }, chr==0);
 
-/**
- * Once we have this, we can write to a file the compressed data if specified.
+
+ //Once we have this, we can write to a file the compressed data if specified.
 
 if(compress) {
 ProfilerSteady::profile("compress_to_file", [&]() {
@@ -959,10 +959,10 @@ output_file_stream.close();
                     std::exit(0);
                 }
                 else {
- */
 
-/*
- * void normal_rlz_star(const DynArray<std::filesystem::path>& files, const DynArray<std::filesystem::path>& sa_files) {
+
+
+void normal_rlz_star(const DynArray<std::filesystem::path>& files, const DynArray<std::filesystem::path>& sa_files) {
   auto root = rlz_root;
   arbor.reserve(files.size() - 1);
   if(compress) {
@@ -991,4 +991,5 @@ output_file_stream.close();
     //Reporting the edges will be done at finishing time
   }
 }
- */
+
+*/
