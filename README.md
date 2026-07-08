@@ -49,7 +49,8 @@ will write the absolute paths of all files in the current directory to the file 
 The available options for `hrlz` are:
 - `-c directory`: saves the compressed database in the specified directory. If not specified, the program will only print to the standard output the size of the compression.
 - `-d directory`: decompresses the database located in the specified directory, instead of compressing. 
-- `-o directory`: If decompressing (setting -d above), selects the specified directory for the decompressed output.
+- `-o directory`: If decompressing (setting `-d` above), selects the specified directory for the decompressed output.
+- `-s index`: If decompressing (setting `-d` above), decompresses only the sequence indexed by `index` (0-based). 
 - `--rlz root_id`: Instead of compressing with hierarchical compression, compresses with relative compression with the specified root (`root_id` is the 0-based index of the desired root in the list of sequences provided as the first argument)
 - `--test_rels perc`: Tests a random sample of `perc%` of the sequences as roots of relative compression, and outputs the size of the best one (or stores the compressed database, if `-c` was used). Example: `--test_rels 0.5` tests a 0.5% of all the relative compressions.
 - `--compressor hirgc|idocomp|rlz` : chooses HiRGC, iDoComp or RLZ as the underlying relative compression algorithm. The default is `rlz`.
@@ -57,7 +58,7 @@ The available options for `hrlz` are:
 - `--load_graph path/to/graph.txt`: loads a specific graph to be used for the hierarchy computation, instead of computing one from scratch.
 - `--sketch_size q`: sets the fingerprint size to `q` (`q` different hash functions will be used to compute the min-hash). The default is 4.
 - `--random seed`: uses the number `seed` as the global random seed for all the random number generators.
-- `--bottom_k`: Uses bottom-k hashing for the fingerprint instead of min-k hashing. Experimental.
+- `--bottom_k`: Uses bottom-k hashing for the fingerprint instead of min-k hashing.
 
 The options may be written in any order. An example execution can be:
 
@@ -66,6 +67,10 @@ The options may be written in any order. An example execution can be:
 An extra file named `metadata` should appear in the compressed directory, along with all the compressed files. To decompress:
 
 `hrlz ./file_list.txt -d ./output-comp/ -o ./output-decomp/ --compressor hirgcmax`
+
+If we wish to decompress the 2nd file in the dataset (ordered by the appearance in `file_list.txt`), then we would run:
+
+`hrlz ./file_list.txt -d ./output-comp/ -s 1 -o ./output-decomp/ --compressor hirgcmax`
 
 This execution will attempt to read the `metadata` file located in `output-comp`, and will fail if it is not found.
 
