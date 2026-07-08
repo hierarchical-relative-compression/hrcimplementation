@@ -36,7 +36,7 @@ std::size_t decompress_sequence_index = 0;
 bool compress = false;
 bool decompress = false;
 char* input_file = nullptr;
-char* decompress_source = nullptr;
+std::filesystem::path decompress_source;
 char *chosen_output_folder = nullptr;
 std::vector<WeightedEdge> arbor;
 //To save and use an existing clustering
@@ -346,7 +346,6 @@ int test_decompress_sequence(const DynArray<std::filesystem::path>& files, float
                 std::minstd_rand { GlobalRandom::get() });
     std::cout << "Testing " << amount << " random sequences..." << std::endl;
     size_t time_all = 0;
-    const std::filesystem::path& dec_source = std::filesystem::canonical(decompress_source);
     std::mutex lock;
 #pragma omp parallel for
     for (size_t i = 0; i < amount; i++) {
@@ -361,7 +360,7 @@ int test_decompress_sequence(const DynArray<std::filesystem::path>& files, float
         if (!std::filesystem::exists(temp_dir)) {
             std::filesystem::create_directories(temp_dir);
         }
-        comp->decompress_sequence(dec_source, sampled[i], temp_dir);
+        comp->decompress_sequence(decompress_source, sampled[i], temp_dir);
         t.stop();
         size_t time = t.duration().count();
         //Delete
@@ -597,7 +596,7 @@ int main(int argc, char** argv) {
                 std::cerr << "Missing argument after -d" << std::endl;
                 exit(1);
             }
-            decompress_source = argv[i];
+            decompress_source = std::filesystem::canonical(argv[i]);
         }
             //To decompress a single index
         else if (strcmp(argv[i], "-s") == 0) {
@@ -692,16 +691,15 @@ int main(int argc, char** argv) {
     if (decompress && !decompress_sequence && !test_seqs) {
         ProfilerSteady::profile("decompress", [&]() {
             std::ifstream input_file;
-            std::filesystem::path decomp_path = std::filesystem::canonical(decompress_source);
             std::unique_ptr<Compressors::Compressor> comp = Compressors::getCompressor();
-            comp->decompress_dataset(decomp_path, filesystem::output_dir);
+            comp->decompress_dataset(decompress_source, filesystem::output_dir);
         });
         return finish_decompress();
     }
     if (decompress && decompress_sequence && !test_seqs) {
         ProfilerSteady::profile("decompress_sequence", [&]() {
             std::unique_ptr<Compressors::Compressor> comp = Compressors::getCompressor();
-            comp->decompress_sequence(std::filesystem::canonical(decompress_source), decompress_sequence_index,
+            comp->decompress_sequence(decompress_source, decompress_sequence_index,
                                       filesystem::output_dir);
         });
         return finish_decompress();

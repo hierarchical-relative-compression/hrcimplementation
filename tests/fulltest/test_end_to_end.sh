@@ -45,7 +45,8 @@ decompress_and_test () {
     ${HRLZ_PATH} "./${DATASET}/${FILE_NAME}" -d "./${DATASET}/comp_${COMPRESSOR}" -o "./${DATASET}/decomp_${COMPRESSOR}" --compressor "${COMPRESSOR}" --random 219159270159650 >"./LOGS/out_${COMPRESSOR}_${DATASET}_decomp.txt" 2>"./LOGS/err_${COMPRESSOR}_${DATASET}_decomp.txt" &&
     cd .. &&
     python3 compare_file.py "./fulltest/${DATASET}/${FILE_NAME}" "./fulltest/${DATASET}" "./fulltest/${DATASET}/decomp_${COMPRESSOR}";
-    status=$? &&
+    status=$?;
+    rm -rf "./fulltest/${DATASET}/decomp_${COMPRESSOR}";
     if [ $status -ne 0 ]; then echo "Failed decompression of dataset ${DATASET} with compressor ${COMPRESSOR}" 1>&2 ; exit 1 ; fi &&
     cd fulltest;
 }
@@ -70,6 +71,12 @@ run_experiment_second "${FILE_NAME}" "8" &&
 
 COMPRESSOR="rlz" &&
 run_experiment_second "${FILE_NAME}" "8";
+
+#Remove compressed folders
+rm -rf "./${DATASET}/comp_hirgc";
+rm -rf "./${DATASET}/comp_idocomp";
+rm -rf "./${DATASET}/comp_rlz";
+rmdir "./${DATASET}/decomp_seqs";
 
 #Remove SA files
 for i in $(seq 0 $((N - 1)));
