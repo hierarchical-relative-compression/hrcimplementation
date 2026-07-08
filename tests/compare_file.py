@@ -57,4 +57,4 @@ print(sequence_names)
 #Compare
 for i in range(count):
     #print("Running: ", "compare_fasta", str(sequences_path + sequence_names[i]), str(output_path + sequence_names[i]))
-    subprocess.run(["../build/tests/compare_fasta", str(sequences_path + sequence_names[i]), str(output_path + sequence_names[i])])
+    subprocess.run(["../build/tests/compare_fasta", str(sequences_path + sequence_names[i]), str(output_path + sequence_names[i])], check=True)

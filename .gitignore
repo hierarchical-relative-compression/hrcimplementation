@@ -22,3 +22,4 @@ cmake-build-relwithdebinfo
 build-reldeb
 *.clang-format
 .clang-format
+tests/fulltest/LOGS
