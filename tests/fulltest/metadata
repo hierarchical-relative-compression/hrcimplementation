@@ -1,6 +1,6 @@
 5
 2
-/home/mpelo/Documents/C++/HRC/hrcimplementation/tests/fulltest/fasta_sequences
+./fasta_sequences
 ENA|FR988026|FR988026.1
 ENA|FR988030|FR988030.1
 ENA|FR988033|FR988033.1

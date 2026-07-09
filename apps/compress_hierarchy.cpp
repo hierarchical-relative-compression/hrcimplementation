@@ -25,9 +25,9 @@ int main(int argc, char *argv[]) {
     if (argc < 4) {
         std::cout << "Usage: " << std::endl;
         std::cout
-                << "compress_hierarchy /path/to/metadata_dir/ -o /path/to/output_folder [--compressor comp] [--chromosomes chr_name_list.txt]"
+                << "compress_hierarchy /path/to/metadata_dir/ -o /path/to/output_folder [--compressor comp]"
                 << std::endl;
-        std::exit(0);
+        std::exit(1);
     }
     std::filesystem::path met_path = argv[1];
     std::filesystem::path out_folder = argv[3];
@@ -40,8 +40,8 @@ int main(int argc, char *argv[]) {
         std::string selected_compressor = argv[5];
         //Seems that C++ doesn't support switch statements on strings.
         if (selected_compressor == "rlz") Compressors::compressor_type = Compressors::RLZ;
-        else if (selected_compressor == "hirgcmax") Compressors::compressor_type = Compressors::HIRGCMAX;
-        else if (selected_compressor == "idocompmax") Compressors::compressor_type = Compressors::IDOCOMPMAX;
+        else if (selected_compressor == "hirgc") Compressors::compressor_type = Compressors::HIRGCMAX;
+        else if (selected_compressor == "idocomp") Compressors::compressor_type = Compressors::IDOCOMPMAX;
         else {
             std::cerr << "The compressor is not supported. Available options: rlz, gdc2, hirgc, sccg" << std::endl;
             exit(1);
