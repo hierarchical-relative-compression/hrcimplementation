@@ -23,3 +23,5 @@ build-reldeb
 *.clang-format
 .clang-format
 tests/fulltest/LOGS
+tests/fulltest/fasta_sequences/comp*
+tests/fulltest/fasta_sequences/decomp*
