@@ -54,15 +54,23 @@ decompress_and_test () {
 run_experiment_second () {
     export OMP_NUM_THREADS="$2"
     #Compress
-    ${HRLZ_PATH} "./${DATASET}/$1" -c "./${DATASET}/comp_${COMPRESSOR}" --compressor "${COMPRESSOR}" --load_graph "./${DATASET}/comp_hirgc/graph.txt" --bottom_k --jaccard --random 219159270159650 >"./LOGS/out_${COMPRESSOR}_${DATASET}_comp.txt" 2>"./LOGS/err_${COMPRESSOR}_${DATASET}_comp.txt" &&
-    ${HRLZ_PATH} "./${DATASET}/${FILE_NAME}" -d "./${DATASET}/comp_${COMPRESSOR}" -o "./${DATASET}/decomp_seqs" --test_sequences 0.5 --compressor "${COMPRESSOR}" --random 219159270159650 >"./LOGS/out_${COMPRESSOR}_${DATASET}_seqdec.txt" 2>"./LOGS/err_${COMPRESSOR}_${DATASET}_seqdec.txt" &&
+    ${HRLZ_PATH} "./${DATASET}/$1" -c "./${DATASET}/comp_${COMPRESSOR}" --compressor "${COMPRESSOR}" --load_graph "./${DATASET}/comp_hirgc/graph.txt" --bottom_k --jaccard --random 219159270159650 >"./LOGS/out_${COMPRESSOR}_${DATASET}_comp.txt" 2>"./LOGS/err_${COMPRESSOR}_${DATASET}_comp.txt";
+    status=$? &&
+    if [ $status -ne 0 ]; then echo "Failed compression of dataset ${DATASET} with compressor ${COMPRESSOR}" 1>&2 ; exit 1 ; fi;
+    ${HRLZ_PATH} "./${DATASET}/${FILE_NAME}" -d "./${DATASET}/comp_${COMPRESSOR}" -o "./${DATASET}/decomp_seqs" --test_sequences 0.5 --compressor "${COMPRESSOR}" --random 219159270159650 >"./LOGS/out_${COMPRESSOR}_${DATASET}_seqdec.txt" 2>"./LOGS/err_${COMPRESSOR}_${DATASET}_seqdec.txt";
+    status=$? &&
+    if [ $status -ne 0 ]; then echo "Failed sequence decompression test of dataset ${DATASET} with compressor ${COMPRESSOR}" 1>&2 ; exit 1 ; fi;
     check_sequences &&
     decompress_and_test;
 }
 
 
-${HRLZ_PATH} "./${DATASET}/${FILE_NAME}" -c "./${DATASET}/comp_${COMPRESSOR}" --compressor "${COMPRESSOR}" --print_graph --bottom_k --jaccard --random 219159270159650 >"./LOGS/out_${COMPRESSOR}_${DATASET}_comp.txt" 2>"./LOGS/err_${COMPRESSOR}_${DATASET}_comp.txt" &&
-${HRLZ_PATH} "./${DATASET}/${FILE_NAME}" -d "./${DATASET}/comp_${COMPRESSOR}" -o "./${DATASET}/decomp_seqs" --test_sequences 0.5 --compressor "${COMPRESSOR}" --random 219159270159650 >"./LOGS/out_${COMPRESSOR}_${DATASET}_seqdec.txt" 2>"./LOGS/err_${COMPRESSOR}_${DATASET}_seqdec.txt" &&
+${HRLZ_PATH} "./${DATASET}/${FILE_NAME}" -c "./${DATASET}/comp_${COMPRESSOR}" --compressor "${COMPRESSOR}" --print_graph --bottom_k --jaccard --random 219159270159650 >"./LOGS/out_${COMPRESSOR}_${DATASET}_comp.txt" 2>"./LOGS/err_${COMPRESSOR}_${DATASET}_comp.txt";
+status=$? &&
+if [ $status -ne 0 ]; then echo "Failed compression of dataset ${DATASET} with compressor ${COMPRESSOR}" 1>&2 ; exit 1 ; fi;
+${HRLZ_PATH} "./${DATASET}/${FILE_NAME}" -d "./${DATASET}/comp_${COMPRESSOR}" -o "./${DATASET}/decomp_seqs" --test_sequences 0.5 --compressor "${COMPRESSOR}" --random 219159270159650 >"./LOGS/out_${COMPRESSOR}_${DATASET}_seqdec.txt" 2>"./LOGS/err_${COMPRESSOR}_${DATASET}_seqdec.txt";
+status=$? &&
+if [ $status -ne 0 ]; then echo "Failed sequence decompression test of dataset ${DATASET} with compressor ${COMPRESSOR}" 1>&2 ; exit 1 ; fi;
 check_sequences &&
 decompress_and_test &&
 
@@ -71,6 +79,9 @@ run_experiment_second "${FILE_NAME}" "8" &&
 
 COMPRESSOR="rlz" &&
 run_experiment_second "${FILE_NAME}" "8";
+
+status=$?
+if [ $status -ne 0 ]; then echo "Test failed somewhere" 1>&2 ; exit 1 ; fi;
 
 #Remove compressed folders
 rm -rf "./${DATASET}/comp_hirgc";
