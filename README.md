@@ -102,7 +102,14 @@ The program `sa_fasta` essentially runs *divsufsort* on `reference_file` but ski
  
 ### compress_hierarchy
 
-Writing in progress...
+Given a metadata file containing a hierarchy for a dataset, we provide a utility to compress again the dataset following the hierarchy. This can be useful if the last stage of the compression failed, or if we wish to compress the dataset again, following the same hierarchy, but with a different compressor.
+
+The tool is located in `build/apps/compress_hierarchy`, and it has the following interface:
+```
+compress_hierarchy [path to directory containing metadata] -o [output directory] [--compressor hirgc|idocomp|rlz]
+```
+The metadata file must be named `metadata` without extensions.
+
 # Pre-processing of datasets
 
 All the relative compressors of this project work on FASTA files. The FASTA files should have one first line starting with the character '>' (the FASTA definition line), ended by a newline character '\n', and followed by all the DNA data **in one line**. In particular:
