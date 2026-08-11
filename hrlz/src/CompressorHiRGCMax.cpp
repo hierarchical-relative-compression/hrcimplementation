@@ -29,6 +29,11 @@ namespace Compressors {
         return output_dir / (get_name(ref_filename, target_filename));
     }
 
+    std::filesystem::path CompressorHiRGCMax::get_encoded_file(const std::string& ref_filename, const std::string& target_filename,
+                                                   const std::filesystem::path& output_dir) {
+        return output_dir / (get_name(ref_filename, target_filename) + encoder->extension);
+    }
+
     std::unique_ptr<RefDataStructure> CompressorHiRGCMax::getRefDataStructure(const std::filesystem::path& ref, bool decomp) {
         std::unique_ptr<HiRGCRef> refDS = std::make_unique<HiRGCRef>(ref, decomp);
         return refDS;

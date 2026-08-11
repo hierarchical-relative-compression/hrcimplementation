@@ -33,9 +33,8 @@ namespace Compressors {
 	extern Compressor_Types compressor_type;
 
 	class Compressor {
-    protected:
-		Encoder *encoder;
     public:
+        Encoder *encoder;
 		Compressor(Encoder *enc);
         virtual ~Compressor();
         std::filesystem::path output_dir;
@@ -61,6 +60,15 @@ namespace Compressors {
         virtual std::filesystem::path get_output_file(const std::string& ref_filename, const std::string& target_filename,
                                                       const std::filesystem::path& output_dir);
 
+        /**
+         * Returns the name of the compressed filename after encoding with the contained encoder.
+         * @param ref_filename Filename of the reference
+         * @param target_filename Filename of the target
+         * @param output_dir directory where the compressed output is stored
+         * @return the filename of the compressed and encoded file
+         */
+        virtual std::filesystem::path get_encoded_file(const std::string& ref_filename, const std::string& target_filename,
+                                                       const std::filesystem::path& output_dir);
         /**
          * Compresses a full hierarchy to disk.
          * @param files an array of all the file paths to the original files.
@@ -153,7 +161,7 @@ namespace Compressors {
         }
 
         bool print_stats = false;
-	};
+    };
 
 	/**
 	 * Get an instance of the selected compressor

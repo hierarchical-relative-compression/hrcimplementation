@@ -41,6 +41,12 @@ namespace Compressors
         return output_dir / get_name(ref_filename, target_filename);
     }
 
+    std::filesystem::path Compressor::get_encoded_file(const std::string &ref_filename,
+                                                       const std::string &target_filename,
+                                                       const std::filesystem::path &output_dir) {
+        return output_dir / (get_name(ref_filename, target_filename) + encoder->extension);
+    }
+
     void Compressor::decompress_pair(const std::filesystem::path& ref, const std::filesystem::path& target, const std::filesystem::path& output) {
         (void)ref;
         (void)target;

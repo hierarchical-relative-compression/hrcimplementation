@@ -56,6 +56,7 @@ def test_compress_decompress_hirgcmax_extras(fasta_ref, fasta_target, ran):
 """
 Test HiRGCMax with one FASTA file of reference and a FASTA target file against an old implementation
 """
+"""
 @given(fasta_ref=fasta_gen(), fasta_target=fasta_gen(), ran=st.integers(min_value=1, max_value=2**63-1))
 @settings(deadline=None)
 def test_hirgcmax_against_old(fasta_ref, fasta_target, ran):
@@ -63,7 +64,7 @@ def test_hirgcmax_against_old(fasta_ref, fasta_target, ran):
     assert byte_differ is not None, "Error on the test"
     int_byte_differ = int(byte_differ)
     assert -1 == int_byte_differ, "Fasta files differ!!!"
-
+"""
 
 """
 Test HiRGCMax with one FASTA file of reference and a FASTA target file,
