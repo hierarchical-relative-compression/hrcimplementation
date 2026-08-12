@@ -15,6 +15,7 @@
 
 #include "../CppEngine/json.hpp"
 #include "Compressors.hpp"
+#include "CompressorIDoCompMax.hpp"
 
 using json = nlohmann::json;
 
@@ -121,6 +122,9 @@ std::vector<struct match> test_compress_idocompmax(const std::string& ref, const
                                                    const_cast<char *>(target.c_str()), ref.size(), target.size());
     free(sa);
     //Delete temp info
+    std::filesystem::remove(ref_path);
+    std::filesystem::remove(ref_sa_path);
+    std::filesystem::remove(target_path);
     return matches;
 }
 
@@ -144,6 +148,9 @@ int test_idocompmax_parse_subs(const std::string& ref, const std::string& target
     free(sa);
     //delete matches_rlz;
     //matches and subs are out parameters
+    std::filesystem::remove(ref_path);
+    std::filesystem::remove(ref_sa_path);
+    std::filesystem::remove(target_path);
     return 0;
 }
 
@@ -192,6 +199,8 @@ int test_idocompmax_insertions_decomp(const std::string& ref, const std::string&
         idc.decompress_target(in_tar, out_tar_dec);
         in_tar.close();
         out_tar_dec.close();
+        std::filesystem::remove(with_ext);
+        std::filesystem::remove(decoded);
     } catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
         return 0;
@@ -212,7 +221,10 @@ int test_idocompmax_insertions_decomp(const std::string& ref, const std::string&
     std::filesystem::remove(ref_path);
     std::filesystem::remove(ref_sa_path);
     std::filesystem::remove(target_path);
-    std::filesystem::remove(comp_dir / target_filename);
     std::filesystem::remove(decomp_dir / target_filename);
     return byte_differ;
+}
+
+int64_t test_compress_decompress_idocompmax(const std::string& ref_fasta, const std::string& target_fasta) {
+    return test_compress_decompress(ref_fasta, target_fasta, true, std::make_unique<Compressors::CompressorIDoCompMax>());
 }

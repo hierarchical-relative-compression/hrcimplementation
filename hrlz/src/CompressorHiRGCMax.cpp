@@ -15,7 +15,9 @@
 namespace Compressors {
     using namespace hirgc_mrmcmax;
 
-    CompressorHiRGCMax::CompressorHiRGCMax() : Compressor(new HuffmanEncoder()) {}
+    CompressorHiRGCMax::CompressorHiRGCMax() : Compressor(new HuffmanEncoder()) {
+        type = "HiRGC";
+    }
 
     CompressorHiRGCMax::~CompressorHiRGCMax() {
         delete encoder;

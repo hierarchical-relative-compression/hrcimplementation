@@ -149,21 +149,6 @@ def subtest_max(ref, target_str):
         print(e)
         assert False
 
-@settings(deadline=10000)
-@given(string=st.text(min_size=50, alphabet=st.characters(codec='ascii', min_codepoint=0)))
-@example(string="""YKI@vxIdT["apZhfE>$'
-69(W<T`N&@MJV(\d'([c0;qSf
-xx'cz_""")
-def test_arith(string):
-    ret = 0
-    try:
-        ret = JSONLayer.test_function("test_arith", [string])
-    except BaseException as e:
-        print(e, file=sys.stderr)
-        assert False
-    assert ret is not None
-    assert -1 == int(ret)
-
 
 @given(fasta_ref=fasta_gen(), fasta_target=fasta_gen())
 @settings(deadline=None)
@@ -189,3 +174,30 @@ def test_idocompmax_ins_2(tup):
     assert byte_differ is not None, "Error on the test"
     int_byte_differ = int(byte_differ)
     assert -1 == int_byte_differ, "Fasta files differ!!!"
+
+@given(fasta_ref=fasta_gen(200), fasta_target=fasta_gen(200))
+@settings(deadline=None)
+def test_compress_decompress_idocompmax(fasta_ref, fasta_target):
+    byte_differ = JSONLayer.test_function("test_compress_decompress_idocompmax", [fasta_ref, fasta_target])
+    assert byte_differ is not None, "Error on the test"
+    int_byte_differ = int(byte_differ)
+    assert -1 == int_byte_differ, "Fasta files differ!!!"
+
+"""
+
+@settings(deadline=10000)
+@given(string=st.text(min_size=50, alphabet=st.characters(codec='ascii', min_codepoint=0)))
+@example(string=\"\"\"YKI@vxIdT["apZhfE>$'
+69(W<T`N&@MJV(\d'([c0;qSf
+xx'cz_\"\"\")
+def test_arith(string):
+    ret = 0
+    try:
+        ret = JSONLayer.test_function("test_arith", [string])
+    except BaseException as e:
+        print(e, file=sys.stderr)
+        assert False
+    assert ret is not None
+    assert -1 == int(ret)
+
+"""

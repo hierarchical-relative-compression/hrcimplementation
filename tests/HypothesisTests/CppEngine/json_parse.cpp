@@ -147,6 +147,11 @@ std::unique_ptr<std::string> function_call(json fn_obj) {
 //        json ret_obj;
 //        ret_obj["return"] = ret;
 //        return std::make_unique<std::string>(ret_obj.dump());
+    } else if (fn_name == "test_compress_decompress_idocompmax") {
+        std::string ref_fasta = fn_obj["args"]["0"].template get<std::string>();
+        std::string target_fasta = fn_obj["args"]["1"].template get<std::string>();
+        int64_t ret = test_compress_decompress_idocompmax(ref_fasta, target_fasta);
+        return json_return(std::to_string(ret));
     } else if (fn_name == "test_agg_multimap") {
         std::vector<size_t> elements = fn_obj["args"]["0"].template get<std::vector<size_t>>();
         uint64_t param = fn_obj["args"]["1"].template get<size_t>();

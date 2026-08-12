@@ -6,6 +6,7 @@
 #include <test_idocomp_max.hpp>
 
 #include "test_compress_hirgc_max.hpp"
+#include "test_idocomp_max.hpp"
 #include "test_finitestateentropy.hpp"
 
 int test_refs();
@@ -13,10 +14,10 @@ int test_refs();
 int main(int argc, char *argv[]) {
     (void)argc;
     (void)argv;
-    std::string ref_string {"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"};
-    std::string tar_string {"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"};
-    int ret = test_compress_hirgcmax(ref_string, tar_string, 3);
-    std::cerr << "compress_decompress_turbo returned " << ret << std::endl;
+    std::string ref_string {">0\nAAAAAAAAAAAAAAAAAAAA"};
+    std::string tar_string {">0\nAAAAAAAAAAAAAAAAAAAA"};
+    int ret = test_idocompmax_insertions_decomp(ref_string, tar_string);
+    std::cerr << "compress_decompress returned " << ret << std::endl;
     return 0;
 }
 /*

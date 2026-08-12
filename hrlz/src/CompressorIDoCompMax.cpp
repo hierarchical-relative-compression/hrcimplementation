@@ -13,6 +13,7 @@ namespace Compressors {
 
     CompressorIDoCompMax::CompressorIDoCompMax() : Compressor(new HuffmanEncoder()) {
         dynamic_cast<HuffmanEncoder*>(encoder)->set_idocomp();
+        type = "iDoComp";
     }
     CompressorIDoCompMax::~CompressorIDoCompMax() {
         delete encoder;

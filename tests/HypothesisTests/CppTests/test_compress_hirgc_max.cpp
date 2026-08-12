@@ -25,64 +25,7 @@ int64_t test_compress_hirgcmax(char *ref_fasta, uint64_t n_ref_fasta, char *targ
 }
 
 int64_t test_compress_hirgcmax(const std::string& ref_fasta, const std::string& target_fasta, uint64_t random) {
-    //First, serialize the reference and the target.
-    std::filesystem::path ref_path, target_path;
-    serialize_two(ref_fasta, target_fasta, ref_path, target_path);
-    std::filesystem::path temp_dir = ref_path.parent_path();
-    //Files are in disk. Compress and decompress.
-    try {
-        Compressors::CompressorHiRGCMax comp;
-        const std::filesystem::path **targets = new const std::filesystem::path*[1];
-        targets[0] = &target_path;
-        const std::string& tar_name = target_path.filename();
-        const std::string& ref_name = ref_path.filename();
-        //Compress
-        comp.compress_one_to_many(ref_path, targets, 1, temp_dir);
-        std::filesystem::path encoded = comp.get_encoded_file(ref_name, tar_name,
-                                                              std::filesystem::canonical(temp_dir));
-        if (!std::filesystem::exists(encoded)) {
-            std::cerr << "Compressed file with HiRGC does not exist!" << std::endl;
-            return 0;
-        }
-        //Decompress
-        std::string subdir = "decomp_hirgc_max";
-        //We want to make a subdirectory for the decompressed files
-        if (!std::filesystem::exists(temp_dir / subdir)) {
-            std::filesystem::create_directory(temp_dir / subdir);
-        }
-        std::filesystem::path *target_compressed = new std::filesystem::path[1];
-        const std::string **tar_original_names = new const std::string*[1];
-        target_compressed[0] = comp.get_output_file(ref_name, tar_name, std::filesystem::canonical(temp_dir)); //The targets are in input_dir
-        tar_original_names[0] = &tar_name;
-        comp.decompress_one_to_many(ref_path, target_compressed, tar_original_names, 1, temp_dir / subdir);
-        std::filesystem::path decompressed_target = temp_dir / subdir / tar_name;
-        if (!std::filesystem::exists(decompressed_target)) {
-            std::cerr << "Decompressed file does not exist!" << std::endl;
-            return 0;
-        }
-        //Read the target
-        std::ifstream decomp(decompressed_target, std::ios::binary);
-        std::stringstream buffer;
-        buffer << decomp.rdbuf();
-        //Check if the strings are the same
-        std::stringstream target_stream(target_fasta);
-        int64_t byte_differ = compare_fasta(buffer, target_stream);
-        //Time to remove all files
-        std::filesystem::remove(ref_path);
-        std::filesystem::remove(target_path);
-        std::filesystem::remove(encoded);
-        std::filesystem::remove(decompressed_target);
-        delete[] target_compressed;
-        delete[] tar_original_names;
-        delete[] targets;
-        return byte_differ;
-    } catch (std::exception& e) {
-        std::cerr << "Error while compressing with HiRGC" << std::endl;
-        std::cerr << e.what() << std::endl;
-        std::filesystem::remove(ref_path);
-        std::filesystem::remove(target_path);
-        return 0;
-    }
+    return test_compress_decompress(ref_fasta, target_fasta, false, std::make_unique<Compressors::CompressorHiRGCMax>());
 }
 
 /*

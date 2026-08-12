@@ -1,9 +1,20 @@
+#Make library for utils_test because compare_fasta is absurdly useful
+add_library(utils_test utils_tests.cpp)
+target_include_directories(utils_test INTERFACE ".")
+target_link_libraries(utils_test PRIVATE hrlzLib)
+target_link_libraries(utils_test PUBLIC iDoCompMaxLib)
+target_link_libraries(utils_test PUBLIC rlzLib)
+target_link_libraries(utils_test PUBLIC Hashing)
+target_link_libraries(utils_test PUBLIC HiRGC)
+target_link_libraries(utils_test PUBLIC fse)
+add_dependencies(utils_test link_sa_fasta)
+target_compile_definitions(utils_test PUBLIC -DPATH_SA_FASTA="${CMAKE_BINARY_DIR}/apps/sa_fasta")
+
 #Add all the needed sources to the engine
 set(TEST_SOURCES
         "${CMAKE_CURRENT_LIST_DIR}/test_compress_hirgc_max.cpp"
         "${CMAKE_CURRENT_LIST_DIR}/test_compress_rlz.cpp"
         "${CMAKE_CURRENT_LIST_DIR}/test_idocomp_max.cpp"
-        "${CMAKE_CURRENT_LIST_DIR}/utils_tests.cpp"
         "${CMAKE_CURRENT_LIST_DIR}/HRLZTests.cpp" "${CMAKE_CURRENT_LIST_DIR}/test_agg_multimap.cpp"
         "${CMAKE_CURRENT_LIST_DIR}/test_finitestateentropy.cpp"
 )
@@ -17,11 +28,8 @@ target_link_libraries(main_pbtests PUBLIC rlzLib)
 target_link_libraries(main_pbtests PUBLIC Hashing)
 target_link_libraries(main_pbtests PUBLIC HiRGC)
 target_link_libraries(main_pbtests PUBLIC fse)
+target_link_libraries(main_pbtests PUBLIC utils_test)
 #target_link_libraries(main_pbtests PRIVATE iDoCompLib HiRGC SCCGLib)
-
-#Make library for utils_test because compare_fasta is absurdly useful
-add_library(utils_test utils_tests.cpp)
-target_include_directories(utils_test INTERFACE ".")
 
 #Make a library with all the tests
 add_library(HRLZTests HRLZTests.cpp "${TEST_SOURCES}") # test_compress_sccg.cpp
@@ -32,6 +40,7 @@ target_link_libraries(HRLZTests PUBLIC rlzLib)
 target_link_libraries(HRLZTests PUBLIC HiRGC)
 target_link_libraries(HRLZTests PUBLIC iDoCompMaxLib)
 target_link_libraries(HRLZTests PUBLIC fse)
+target_link_libraries(HRLZTests PUBLIC utils_test)
 #Add public header
 #set_target_properties(HRLZTests PROPERTIES PUBLIC_HEADER HRLZTests.h)
 #target_include_directories(HRLZTests PRIVATE "../CppEngine/")

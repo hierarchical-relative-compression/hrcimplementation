@@ -38,6 +38,7 @@ namespace Compressors {
 		Compressor(Encoder *enc);
         virtual ~Compressor();
         std::filesystem::path output_dir;
+        std::string type { "RLZ" }; //For logging purposes
 
 		virtual size_t compress_pair_delete(const std::filesystem::path& ref, const std::filesystem::path& file_to_parse, const std::filesystem::path& ref_sa = "") {
             (void)ref;

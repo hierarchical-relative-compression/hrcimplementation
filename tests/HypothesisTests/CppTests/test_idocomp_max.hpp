@@ -17,5 +17,6 @@ int test_idocompmax_parse_subs(const std::string& ref, const std::string& target
 
 int test_idocompmax_insertions_decomp(const std::string& ref, const std::string& target);
 
+int64_t test_compress_decompress_idocompmax(const std::string& ref_fasta, const std::string& target_fasta);
 
 #endif //HIERARCHICALRELATIVELEMPELZIV_TEST_IDOCOMPMAX_HPP
