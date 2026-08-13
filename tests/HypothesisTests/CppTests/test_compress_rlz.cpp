@@ -23,6 +23,11 @@ int64_t test_rlz_compress_decompress(char *ref_fasta, uint64_t n_ref_fasta, char
 }
 
 int64_t test_rlz_compress_decompress(const std::string& ref_fasta, const std::string& target_fasta) {
+    return test_compress_decompress(ref_fasta, target_fasta, true, std::make_unique<Compressors::CompressorRLZ>());
+}
+
+/*
+int64_t test_rlz_compress_decompress(const std::string& ref_fasta, const std::string& target_fasta) {
     static int id = 1;
     std::filesystem::path temp_dir = std::filesystem::temp_directory_path();
     std::string string_id = std::to_string(id);
@@ -52,7 +57,39 @@ int64_t test_rlz_compress_decompress(const std::string& ref_fasta, const std::st
     //Files are in the disk. Now, we need the SA of the reference
     temp_ref.close();
     temp_target.close();
-    try {
+    int ret = make_SA(ref_path);
+    if (ret != 0) {
+        std::cerr << "Problem making SA for RLZ fasta" << std::endl;
+        return 0;
+    }
+    //SA has been written. We can compress now
+    Compressors::CompressorRLZ *rlz_comp = new Compressors::CompressorRLZ();
+    rlz_comp->output_dir = comp_dir;
+    rlz_comp->compress_pair_keep(ref_path, target_path, ref_sa_path);
+    delete rlz_comp;
+    //The compression has been done. Now, decompress
+    DynArray<char> ref = read_compacted_DNA(ref_path);
+    Compressors::CompressorRLZ::decompress_pair(ref, filename_compressed, filename_target, decomp_dir, comp_dir);
+    //And read the output
+    std::string out;
+    std::ifstream decomp(decomp_dir / filename_decompressed, std::ios::binary);
+    std::stringstream buffer;
+    buffer << decomp.rdbuf();
+    //Destroy the temp files
+    std::filesystem::remove(ref_path);
+    std::filesystem::remove(ref_sa_path);
+    std::filesystem::remove(target_path);
+    std::filesystem::remove(comp_dir / filename_compressed);
+    std::filesystem::remove(decomp_dir / filename_decompressed);
+    //Now, we have to check if the strings are the same
+    std::stringstream target_stream(target_fasta);
+    int64_t byte_differ = compare_fasta(buffer, target_stream);
+    return byte_differ;
+}
+*/
+/*
+ * LEGACY
+ * try {
         //Call sa.run
         pid_t pid;
         pid = fork();
@@ -68,29 +105,7 @@ int64_t test_rlz_compress_decompress(const std::string& ref_fasta, const std::st
                 std::cerr << "SA for a test fasta finished with error code " << status << std::endl;
                 return 0; //Error on the first byte
             }
-            //SA has been written. We can compress now
-            Compressors::CompressorRLZ *rlz_comp = new Compressors::CompressorRLZ();
-            rlz_comp->output_dir = comp_dir;
-            rlz_comp->compress_pair_keep(ref_path, target_path, ref_sa_path);
-            delete rlz_comp;
-            //The compression has been done. Now, decompress
-            DynArray<char> ref = read_compacted_DNA(ref_path);
-            Compressors::CompressorRLZ::decompress_pair(ref, filename_compressed, filename_target, decomp_dir, comp_dir);
-            //And read the output
-            std::string out;
-            std::ifstream decomp(decomp_dir / filename_decompressed, std::ios::binary);
-            std::stringstream buffer;
-            buffer << decomp.rdbuf();
-            //Destroy the temp files
-            std::filesystem::remove(ref_path);
-            std::filesystem::remove(ref_sa_path);
-            std::filesystem::remove(target_path);
-            std::filesystem::remove(comp_dir / filename_compressed);
-            std::filesystem::remove(decomp_dir / filename_decompressed);
-            //Now, we have to check if the strings are the same
-            std::stringstream target_stream(target_fasta);
-            int64_t byte_differ = compare_fasta(buffer, target_stream);
-            return byte_differ;
+
         }
     } catch (std::exception& e) {
         //Destroy the temp files
@@ -101,4 +116,4 @@ int64_t test_rlz_compress_decompress(const std::string& ref_fasta, const std::st
         std::filesystem::remove(decomp_dir / filename_decompressed);
         return 0;
     }
-}
+ */

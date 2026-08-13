@@ -65,29 +65,13 @@ int make_strings_and_sa(const std::string& ref, const std::string& target,
     if (st < 0) return -1;
     std::filesystem::path dir = ref_path.parent_path();
     //Make the SA
+    int ret = make_SA(ref_path);
+    if (ret != 0) {
+        std::cerr << "Error creating SA" << std::endl;
+        return ret;
+    }
     ref_sa_path = std::filesystem::path(ref_path); //Copy constructor
     ref_sa_path += ".sa";
-    try {
-        //Call sa.run
-        pid_t pid;
-        pid = fork();
-        if (pid == 0) {
-            execlp("sa_fasta.run", "sa_fasta.run", ref_path.c_str(), ref_sa_path.c_str(), (char *) 0);
-            //If it reaches here, something went wrong
-            std::cerr << "The SA for a test fasta couldn't be made" << std::endl;
-            return -1;
-        } else {
-            int status;
-            waitpid(pid, &status, 0);
-            if (status != 0) {
-                std::cerr << "SA for a test fasta finished with error code " << status << std::endl;
-                return -1;
-            }
-        }
-    } catch (std::ios_base::failure& e) {
-        std::cerr << e.what() << std::endl;
-        return -1;
-    }
     //SA done. Read it
     //The size of ref should be without the FASTA definition line
     size_t ref_size = ref.size();
@@ -228,3 +212,31 @@ int test_idocompmax_insertions_decomp(const std::string& ref, const std::string&
 int64_t test_compress_decompress_idocompmax(const std::string& ref_fasta, const std::string& target_fasta) {
     return test_compress_decompress(ref_fasta, target_fasta, true, std::make_unique<Compressors::CompressorIDoCompMax>());
 }
+
+/*
+ * LEGACY
+ *
+
+    try {
+        //Call sa.run
+        pid_t pid;
+        pid = fork();
+        if (pid == 0) {
+            execlp("sa_fasta.run", "sa_fasta.run", ref_path.c_str(), ref_sa_path.c_str(), (char *) 0);
+            //If it reaches here, something went wrong
+            std::cerr << "The SA for a test fasta couldn't be made" << std::endl;
+            return -1;
+        } else {
+            int status;
+            waitpid(pid, &status, 0);
+            if (status != 0) {
+                std::cerr << "SA for a test fasta finished with error code " << status << std::endl;
+                return -1;
+            }
+        }
+    } catch (std::ios_base::failure& e) {
+        std::cerr << e.what() << std::endl;
+        return -1;
+    }
+
+ */
