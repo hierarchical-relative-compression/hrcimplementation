@@ -136,6 +136,12 @@ change_dashes_to_Ns.sh file.fa
 
 The program will do an in-place substitution. It is implemented with a simple `sed` command:
 `sed -i 's/-/N/g' $1` .
+
+## Downloading the reference 661k dataset
+
+In the `scripts` folder, there is a helper script to download and preprocess the largest of the datasets that we used in the original paper, the 661k dataset. To download and preprocess this dataset, create a new folder and copy the scripts `download_preprocess_661k.sh` and `many_to_one_fasta.py` to the folder. Then, running `download_preprocess_661k.sh` will download, decompress and preprocess the files that make up the ~100GB prefix of the 661k dataset. 
+
+To download a smaller or larger part of the full dataset, one only needs to change the `for i in {0..9}; do`  and `for i in {10..29}; do` loops to download more or less batches, as desired. Each batch has 1000 contig files.
 # Credits
 
 The main code for the hierarchical compression was written by Simon Rumle Tarnow. The re-implementations of HiRGC and iDoComp were written by Máximo Pérez López, as well as the glue code to the hierarchical compression and the bottom-k hashing and Jaccard similarity optimizations. The RLZ code was written by Simon J. Puglisi. 
